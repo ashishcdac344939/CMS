@@ -1,0 +1,192 @@
+<div class="row" id="visitDetailsDiv" th:fragment="addVisitDetails"
+	style="display: none;">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">Add New Visit Details</div>
+			<div class="card-body">
+				<!-- <h4 class="card-title">Add New Visit Details</h4>
+				<hr> -->
+				<form action="#">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class=" col-form-label">Investigation
+									Date</label>
+								<div class="form-group mb-3">
+									<input type="date" class="form-control" id="investigationDate">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="nextVisitDate" class=" col-form-label">Next
+									Visit Date</label>
+								<div class="form-group mb-3">
+									<input type="date" class="form-control" id="nextVisitDate">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class=" col-form-label">Important
+									Findings</label>
+								<div class="form-group mb-3">
+									<textarea type="text" class="form-control" rows="3"
+										placeholder="Important Findings" id="importantFinding"></textarea>
+								</div>
+							</div>
+							<!-- </div>
+						<div class="row"> -->
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class=" col-form-label">Secondary
+									observations</label>
+								<div class="form-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="Secondary observations" id="pdSecondaries">
+								</div>
+							</div>
+
+							<!-- </div>
+						<div class="row"> -->
+							<!-- <div class="col-md-6">
+								<label for="inputHorizontalDnger" class=" col-form-label">Treatment
+									Details</label>
+								<div class="form-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="Treatment Details" id="pdTreatmentDetails">
+								</div>
+							</div> -->
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class=" col-form-label">Present
+									Status</label>
+								<div class="form-group mb-3">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="presentStatus" id="onactivetherapy"
+											value="onactivetherapy"> <label
+											class="form-check-label" for="onactivetherapy">On
+											active therapy</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="presentStatus" id="advancemaligenancystable"
+											value="advancemaligenancystable"> <label
+											class="form-check-label" for="advancemaligenancystable">Advanced
+											maligenancy stable</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="presentStatus" id="advancemaligenancyprogressive"
+											value="advancemaligenancyprogressive"> <label
+											class="form-check-label" for="advancemaligenancyprogressive">Advanced
+											maligenancy progressive</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class=" col-form-label">Do
+									you think patient refer to other Department / Doctor</label>
+								<div class="form-group mb-3">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="referOthDoc" id="referY" value="yes"> <label
+											class="form-check-label" for="referY">Yes</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="referOthDoc" id="referN" value="no"> <label
+											class="form-check-label" for="referN">No</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="col-12">
+		<div class="card">
+			<div class="card-header">Referral Details</div>
+			<div class="card-body">
+				<!-- <h4 class="card-title">Referral Details</h4>
+				<hr> 
+				<form action="#">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class=" col-form-label">Referral
+									to Palliative Care Ward</label>
+								<div class="form-group mb-3">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="isReferralToPcw" id="isReferralToPcwYes" value="yes">
+										<label class="form-check-label" for="isReferralToPcwYes">Yes</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="isReferralToPcw" id="isReferralToPcwNo" value="no">
+										<label class="form-check-label" for="isReferralToPcwNo">No</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class=" col-form-label">Referred
+									from:</label>
+								<div class="form-group mb-3">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="referOthDoc" id="referY" value="yes"> <label
+											class="form-check-label" for="referY">DMG</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="referOthDoc" id="referN" value="no"> <label
+											class="form-check-label" for="referN">Oncology
+											Department</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="referOthDoc" id="referN" value="no"> <label
+											class="form-check-label" for="referN">Palliative
+											Department</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class=" col-form-label">Indication
+									Of Referral</label>
+								<div class="form-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="Current Diagnosis" id="pdCurrentDiagnosis">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class=" col-form-label">Time
+									Of Presentation To Pcw After Diagnosis</label>
+								<div class="form-group mb-3">
+									<input type="datetime-local" class="form-control"
+										id="timeOfPresentationToPcwAfterDiagnosis">
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div> -->
+	<div class="col-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="form-body">
+					<div class="row">
+						<div class="form-actions">
+							<div class="d-flex justify-content-between">
+							<button type="reset" class="btn btn-dark btn-width-20">Reset</button>
+								<button type="button" class="btn btn-info btn-width-20"
+									onclick="addVisitDetail()">Submit</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

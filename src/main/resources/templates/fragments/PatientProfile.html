@@ -1,0 +1,419 @@
+<div class="row" id="patientProfile" th:fragment="patientProfile">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">My Profile</div>
+				<div class="card-body"> 
+					<!-- <h4 class="card-title">Basic Details</h4>
+					<hr> -->
+					<div class="col-lg-12" id="passwordDiv">
+						<div class="form-group mb-12">
+							<div class="row">
+								<div class="col-md-6">
+									<label class="col-form-label text-dark" for="centerCode">Center
+										Name</label>
+									<div class="form-group mb-3">
+										<input class="form-control" id="mobile" type="text"
+												  th:value="${centerName}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="opdOripd" class="col-form-label">Enrollment
+										of Patient from OPD or IPD</label>
+									<div class="form-group mb-3">
+										<input class="form-control" id="mobile" type="text"
+												  th:value="${patientDetails.opdipd}" disabled="disabled">
+									</div> 
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Patient
+										Registration No</label>
+									<div class="form-group mb-3">
+										<input class="form-control" id="mobile" type="text"
+												  th:value="${patientDetails.patientRegNo}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Personal Details</div>
+				<div class="card-body">
+					<!-- <h4 class="card-title">Personal Details</h4>
+					<hr> -->
+					<form action="#">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Name</label>
+									<div class="form-group mb-3">
+										<input class="form-control" id="username" type="text"
+										placeholder="Enter your Username" disabled="disabled" th:value="${userDetails.userName}">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">User
+										ID / Email</label>
+									<div class="form-group mb-3">
+										<input
+										class="form-control" id="email" type="text"
+										placeholder="Enter your Email" disabled="disabled" th:value="${userId}">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Mobile</label>
+									<div class="form-group mb-3">
+										<input class="form-control" id="mobile" type="text"
+												maxlength="10"  th:value="${userDetails.userMobile}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+
+							<!-- <div class="row">
+											<div class="col-md-6">
+												<label for="inputHorizontalDnger" class="col-form-label">Alternate
+													Mobile</label>
+												<div class="form-group mb-3">
+													<input type="text" class="form-control"
+														placeholder="Enter Alternate Mobile Number"
+														id="alternateMobile">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label for="inputHorizontalDnger" class="col-form-label">Address</label>
+												<div class="form-group mb-3">
+													<input type="text" class="form-control"
+														placeholder="Enter Address" id="address">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label for="inputHorizontalDnger" class="col-form-label">User
+													Description</label>
+												<div class="form-group mb-3">
+													<input type="text" class="form-control"
+														placeholder="User Description" id="userDescription">
+												</div>
+											</div>
+										</div> -->
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Aadhaar
+										Number</label>
+									<div class="form-group mb-3">
+										<input class="form-control"  type="text"
+												  th:value="${userDetails.userUniqueId}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label col-12">Gender</label>
+									<div class="form-check form-check-inline">
+										<input class="form-control"  type="text"
+												  th:value="${patientDetails.pGender}" disabled="disabled">
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Date
+										of Birth</label>
+									<div class="form-group mb-3">
+										<input type="date" class="form-control" id="dob"
+											th:value="${patientDetails.pDob}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Education
+										Qualification</label>
+									<div class="form-group mb-4">
+									   <input type="text" class="form-control" 
+											th:value="${patientDetails.pEduQualification}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Occupation
+										of Patient</label>
+									<div class="form-group mb-4">
+										 <input type="text" class="form-control" 
+											th:value="${patientDetails.occupationOfPatient}" disabled="disabled">
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label col-12">Marital
+										Status</label>
+									<div class="form-group mb-4">
+										 <input type="text" class="form-control" 
+											th:value="${patientDetails.maritalStatus}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Language
+										Known:</label>
+									<div class="form-group mb-3" id="languageKnown" th:each="lang: ${languageKnown}">
+										<input type="text" class="form-control" 
+											th:value="${lang.languageName}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label col-12">Housing
+										Status</label>
+										Status</label>
+									<div class="form-group mb-4">
+										 <input type="text" class="form-control" 
+											th:value="${patientDetails.housingStatus}" disabled="disabled">
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Family Details</div>
+				<div class="card-body">
+					<!-- <h4 class="card-title">Family Details</h4>
+					<hr> -->
+					<form action="#">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Primary
+										Care Giver Name</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											th:value="${patientDetails.pPrimaryCareGiver}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Primary
+										Care Giver Relation with Patient</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											th:value="${patientDetails.pPrimaryCareGiverRelationWithPatient}" disabled="disabled">
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">No.
+										of Son </label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											th:value="${patientDetails.pSons}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">No.
+										of Daughter </label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											th:value="${patientDetails.pDaughter}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">No.
+										of Dependent Children</label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											th:value="${patientDetails.pDependentChildren}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">No
+										of Married Daughter </label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											th:value="${patientDetails.pMarrigebleDaughters}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Earning
+										Member Names</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											th:value="${patientDetails.pFamilyEarningMember}" disabled="disabled">
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Socio-Economic Status of Patient</div>
+				<div class="card-body">
+					<!-- <h4 class="card-title">Socio-Economic Status of Patient</h4>
+					<hr> -->
+					<form action="#">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Education
+										of Head of the Family</label>
+									<div class="form-group mb-4">
+										<input type="text" class="form-control"
+											th:value="${patientDetails.familyHeadEducation}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Occupation
+										of Head of the Family</label>
+									<div class="form-group mb-4">
+										<input type="text" class="form-control"
+											th:value="${patientDetails.familyHeadOccupation}" disabled="disabled">
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Income
+										of Head of the Family</label>
+									<div class="form-group mb-4">
+										<input type="text" class="form-control"
+											th:value="${patientDetails.familyHeadIncome}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Address Details</div>
+				<!-- <h4 class="card-title"></h4>
+				<hr> -->
+				<div class="card-body">
+					<form action="#">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="address" class="col-form-label">Address</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											th:value="${userDetails.address}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Distance
+										from Home to NCI/IRCH(In KM)</label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											th:value="${patientDetails.pDistanceToNciInkm}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">State</label>
+									<div class="form-group mb-4">
+										<input type="text" class="form-control"
+											th:value="${stateName}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">City</label>
+									
+									<div class="form-group mb-4">
+										<input type="text" class="form-control"
+											th:value="${DistrictName}" disabled="disabled">
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label col-12">Mode
+										of transport</label>
+									<input type="text" class="form-control"
+											th:value="${patientDetails.pModeOfTransport}" disabled="disabled">
+								</div>
+
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Diagnosis</div>
+				<div class="card-body">
+					<form action="#">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="address" class="col-form-label">When Cancer
+										was diagnosed?</label>
+									<div class="form-group mb-3">
+										<input type="date" class="form-control"
+											th:value="${patientDetails.pWhenCancerDiagnosed}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Stage
+										of Cancer</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											th:value="${patientDetails.stateOfCancer}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Current
+										Diagnosis</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control" rows="3"
+											th:value="${patientDetails.currentDiagnosis}" disabled="disabled">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Treatment
+										Received</label>
+									<div class="form-group mb-3"  th:each="treatment: ${TreatmentReceived}">
+										<input type="text" class="form-control" 
+											th:value="${treatment.treatmentName}" disabled="disabled">
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class=" col-form-label">Treatment
+										Details</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											th:value="${patientDetails.treatmentDetails}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>

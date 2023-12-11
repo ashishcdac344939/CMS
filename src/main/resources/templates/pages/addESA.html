@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16"
+	href="../assets/images/aiimsLogo.png">
+<title>Home</title>
+<!-- Custom CSS -->
+<link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+<link href="../assets/libs/chartist/dist/chartist.min.css"
+	rel="stylesheet">
+<link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	th:href="@{/assets/dataTables/datatables.min.css}">
+<!-- <link rel="stylesheet"
+	href="../assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet"
+	href="../assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css"> -->
+<!-- Custom CSS -->
+<link href="../dist/css/style.min.css" rel="stylesheet">
+<link th:href="@{/assets/libs/select2/css/select2.css}"
+	rel="stylesheet">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- apps -->
+<!-- apps -->
+<script src="../dist/js/app-style-switcher.js"></script>
+<script src="../dist/js/feather.min.js"></script>
+<script
+	src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="../dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="../dist/js/custom.min.js"></script>
+<!--This page JavaScript -->
+<script src="../assets/extra-libs/c3/d3.min.js"></script>
+<script src="../assets/extra-libs/c3/c3.min.js"></script>
+<script src="../assets/libs/chartist/dist/chartist.min.js"></script>
+<script
+	src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<script
+	src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+<script
+	src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+<script src="../dist/js/pages/dashboards/dashboard1.min.js"></script>
+<!-- for data tables -->
+<script th:src="@{/assets/dataTables/datatables.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/assets/libs/select2/js/select2.js}"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<!-- <script
+	src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="../assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
+<script src="../dist/js/pages/datatable/datatable-basic.init.js"></script> -->
+
+<style type="text/css">
+.jqstooltip {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	visibility: hidden;
+	background: rgb(0, 0, 0) transparent;
+	background-color: rgba(0, 0, 0, 0.6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,
+		endColorstr=#99000000);
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+	color: white;
+	font: 10px arial, san serif;
+	text-align: left;
+	white-space: nowrap;
+	padding: 5px;
+	border: 1px solid white;
+	z-index: 10000;
+}
+
+.jqsfield {
+	color: white;
+	font: 10px arial, san serif;
+	text-align: left;
+}
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+	#prescriptionPrintDiv * {
+		visibility: visible;
+	}
+	#painAssessmentPrintDiv * {
+		visibility: visible;
+	}
+} 
+</style>
+</head>
+<body>
+<div class="preloader">
+		<div class="lds-ripple">
+			<div class="lds-pos"></div>
+			<div class="lds-pos"></div>
+		</div>
+	</div>
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper" data-theme="light" data-layout="vertical"
+		data-navbarbg="skin6" data-sidebartype="full"
+		data-sidebar-position="fixed" data-header-position="fixed"
+		data-boxed-layout="full">
+		<div th:replace="fragments/header::header"></div>
+		<div th:replace="fragments/doctorSidebar::doctorSidebar"></div>
+		<div class="page-wrapper ">
+
+			<!-- actual content start -->
+			<div class="container-fluid searchPatientDiv">
+				<div class="row justify-content-center" id="searchPatient">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-header">Search Patient ESA Details</div>
+							<div class="card-body">
+								<!-- <h4 class="card-title">Search Visit Details</h4>
+								<hr> -->
+								<div class="form-body">
+									<div class="row">
+										<label class="form-label col-md-1">User ID: </label>
+										<div class="col-md-6">
+											<div class="form-group mb-3">
+												<input type="text" class="form-control"
+													placeholder="Recipient's username"
+													aria-label="Recipient's username"
+													aria-describedby="basic-addon2" id="searchPatientByUserId">
+											</div>
+										</div>
+										<!-- <div class="col-md-2"></div> -->
+										<div class="form-actions col-md-3">
+											<div class="">
+												<button class="btn btn-primary" type="button"
+													onclick="searchPatientForESA()">
+													<i class="fas fa-search me-2"></i>Search
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="container-fluid  messageDiv" style="display: none">
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="messageText"></h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Show ESAvisit datails of customer -->
+				<div
+					th:replace="fragments/showESAVisitDetailsTable::showESAVisitDetailsTable"></div>
+				<!--  -->
+
+				<!-- add edmSymptomAssessment Details form here -->
+				<div
+					th:replace="fragments/edmSymptomAssessment::edmSymptomAssessment"></div>
+
+			</div>
+			<!--end  -->
+			<footer class="footer text-center text-muted"> All Rights
+				Reserved by AIIMS. </footer>
+		</div>
+	</div>
+	<div th:insert="fragments/Model::used_model"></div>
+	<script type="text/javascript" 
+		th:src="@{/js/custom/viewVisitPatient.js}"></script>
+	<script type="text/javascript" th:src="@{/js/custom/ESA.js}"></script>
+	<script type="text/javascript">
+	$(".nav-link.dropdown-toggle").click(function(){
+		$(".nav-link.dropdown-toggle, .dropdown-menu.dropdown-menu-end.dropdown-menu-right.user-dd.animated.flipInY").toggleClass("show")
+		$(".nav-link.dropdown-toggle").attr("aria-expanded","true")
+		$(".dropdown-menu.dropdown-menu-end.dropdown-menu-right.user-dd.animated.flipInY").attr("data-bs-popper","static")
+	})
+	</script>
+</body>
+</html>

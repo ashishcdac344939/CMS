@@ -1,0 +1,414 @@
+<div class="row" th:fragment="addPainAssessment"
+	id="patientPainAssessmentDetailsDiv" style="display: none">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">Add Pain Assessment Details</div>
+			<div class="card-body">
+				<!-- <h4 class="card-title">Add Pain Assessment Details</h4>
+				<hr> -->
+				<form action="#">
+					<div class="form-body">
+						<label class="form-label"> </label>
+						<div class="row">
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Max
+									NRS Pain Experienced</label>
+								<div class="form-group mb-4">
+									<!-- <select class="dropdown-with-search form-select mr-sm-2"
+										id="ppMaxPainExperienced">
+										<option selected="-1" value="Choose...">Choose...</option>
+										<option value="0">0</option>
+										<option value="10">1</option>
+										<option value="20">2</option>
+										<option value="30">3</option>
+										<option value="40">4</option>
+										<option value="50">5</option>
+										<option value="60">6</option> 
+										<option value="70">7</option>
+										<option value="90">8</option>
+										<option value="100">9</option>
+										<option value="100">10</option>
+									</select> -->
+									<input type="range" class="form-range" step="1" min="0"
+										max="10" list="ppMaxPainExperiencedTickmarks"
+										id="ppMaxPainExperienced">
+
+									<datalist id="ppMaxPainExperiencedTickmarks">
+										<option value="0" label="0"></option>
+										<option value="1" label="1"></option>
+										<option value="2" label="2"></option>
+										<option value="3" label="3"></option>
+										<option value="4" label="4"></option>
+										<option value="5" label="5"></option>
+										<option value="6" label="6"></option>
+										<option value="7" label="7"></option>
+										<option value="8" label="8"></option>
+										<option value="9" label="9"></option>
+										<option value="10" label="10"></option>
+									</datalist>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Min
+									NRS Pain Experienced</label>
+
+								<div class="form-group mb-4">
+									<!-- <select class="dropdown-with-search form-select mr-sm-2"
+										id="ppNrsRepresentingLeastPain">
+										<option selected="-1">Choose...</option>
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select> -->
+									<input type="range" class="form-range" step="1" min="0"
+										max="10" list="ppNrsRepresentingLeastPainTickmarks"
+										id="ppNrsRepresentingLeastPain">
+
+									<datalist id="ppNrsRepresentingLeastPainTickmarks">
+										<option value="0" label="0"></option>
+										<option value="1" label="1"></option>
+										<option value="2" label="2"></option>
+										<option value="3" label="3"></option>
+										<option value="4" label="4"></option>
+										<option value="5" label="5"></option>
+										<option value="6" label="6"></option>
+										<option value="7" label="7"></option>
+										<option value="8" label="8"></option>
+										<option value="9" label="9"></option>
+										<option value="10" label="10"></option>
+									</datalist>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Pain
+									Maximum During Day</label>
+
+								<div class="form-group mb-4">
+									<select class="dropdown-with-search form-select mr-sm-2"
+										id="ppPainMaximumDuringDay">
+										<option selected="Choose...">Choose...</option>
+										<option value="Through Out">Through Out</option>
+										<option value="Morning">Morning</option>
+										<option value="Afternoon">Afternoon</option>
+										<option value="Evening">Evening</option>
+										<option value="Evening">Night</option>
+										<option value="Not Specific">Not Specific</option>
+
+
+									</select>
+								</div>
+								<input type="text" id="ppPatientId" hidden /> <input
+									type="text" id="ppPatientvisitId" hidden />
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Invistigation
+									Date</label>
+								<div class="form-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="Invistigation Date" id="ppInvistigationDate">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Does
+									It Radiate from Point Of Origin</label>
+
+								<div class="form-group mb-1">
+									<!-- <select class="form-select mr-sm-2"
+										id="ppIsRadiatefromPointOfOrigin">
+										<option selected="">Choose...</option>
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+									</select> -->
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="ppIsRadiatefromPointOfOrigin"
+											id="ppIsRadiatefromPointOfOriginY" value="yes"> <label
+											class="form-check-label" for="ppIsRadiatefromPointOfOriginY">Yes</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="ppIsRadiatefromPointOfOrigin"
+											id="ppIsRadiatefromPointOfOriginN" value="no"> <label
+											class="form-check-label" for="ppIsRadiatefromPointOfOriginN">No</label>
+									</div>
+								</div>
+								<div class="form-group"
+									id="ppRadiatefromPointOfOriginDetailsDiv" style="display: none">
+									<label for="inputHorizontalDnger" class="col-form-label">Radiate
+										from Point Of Origin Details</label> <input type="text"
+										class="form-control"
+										placeholder="Radiate from Point Of Origin Details"
+										id="ppRadiatefromPointOfOriginDetails">
+								</div>
+								<!-- </div>
+							<div class="col-md-6"> -->
+
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Is
+									Worsened By Activity</label>
+								<div class="form-group mb-1">
+									<!-- <select class="form-select mr-sm-2" id="ppIsWorsenedByActivity">
+										<option selected="">Choose...</option>
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+									</select> -->
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="ppIsWorsenedByActivity" id="ppIsWorsenedByActivityY"
+											value="yes"> <label class="form-check-label"
+											for="ppIsWorsenedByActivityY">Yes</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="ppIsWorsenedByActivity" id="ppIsWorsenedByActivityN"
+											value="no"> <label class="form-check-label"
+											for="ppIsWorsenedByActivityN">No</label>
+									</div>
+								</div>
+								<!-- </div>
+							<div class="col-md-6"> -->
+								<div class="form-group" id="ppWorsenedByActivityDetailsDiv"
+									style="display: none">
+									<label for="inputHorizontalDnger" class="col-form-label">Worsened
+										By Activity Details</label> <input type="text" class="form-control"
+										placeholder="Worsened By Activity Details"
+										id="ppWorsenedByActivityDetails">
+								</div>
+								<!-- <input type="text" id="ppPatientId" hidden /> <input
+									type="text" id="ppPatientvisitId" hidden /> -->
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Any
+									Posture Gives Relief</label>
+								<div class="form-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="Any Posture Gives Relief"
+										id="ppIsAnyPostureGivesRelief">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Received
+									Treatment For Your Pain</label>
+								<div class="form-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="Received Treatment For Year Details"
+										id="ppReceivedTreatmentForYearDetails">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Pain
+									Relief After Medication</label>
+								<div class="form-group mb-4">
+									<!-- <select class="dropdown-with-search form-select mr-sm-2"
+										id="ppPainReliefAfterMedication">
+										<option selected="-1">Choose...</option>
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+
+
+									</select> -->
+									<input type="range" class="form-range" step="1" min="0"
+										max="10" list="ppPainReliefAfterMedicationTickmarks"
+										id="ppPainReliefAfterMedication">
+
+									<datalist id="ppPainReliefAfterMedicationTickmarks">
+										<option value="0" label="0"></option>
+										<option value="1" label="1"></option>
+										<option value="2" label="2"></option>
+										<option value="3" label="3"></option>
+										<option value="4" label="4"></option>
+										<option value="5" label="5"></option>
+										<option value="6" label="6"></option>
+										<option value="7" label="7"></option>
+										<option value="8" label="8"></option>
+										<option value="9" label="9"></option>
+										<option value="10" label="10"></option>
+									</datalist>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">How
+									Long Relief Retained</label>
+
+								<div class="form-group mb-4">
+									<select class="dropdown-with-search form-select mr-sm-2"
+										id="ppHowLongReliefRetained">
+										<option selected="Choose...">Choose...</option>
+										<option value="<2Hr"><2Hr</option>
+										<option value="<4Hr"><4Hr</option>
+										<option value="<6Hr"><6Hr</option>
+										<option value="<6Hr-10Hr"><6Hr-10Hr</option>
+										<option value=">10Hr">>10Hr</option>
+
+
+
+									</select>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-6">
+										<label for="inputHorizontalDnger" class="col-form-label">Type
+											of Pain</label>
+										<div class="form-group mb-3">
+											<div id="humanBodyContainer">
+												<!-- Circles will be added here -->
+											</div>
+											<input type="button" class="btn btn-dark px-3 btn-sm"
+												onclick="resetCircleOfImage()" value="Reset" />
+											<!--  <input type="file" id="imageFile" accept="image/*"> -->
+											<!-- 	<button id="saveButton">Save Edited Image</button> -->
+										</div>
+ 
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-12">
+												<label for="inputHorizontalDnger" class="col-form-label">How
+													Much Pain Interfere Daily Activity</label>
+
+												<div class="form-group mb-4">
+													<select class="dropdown-with-search form-select mr-sm-2"
+														id="ppHowMuchPainInterfereDailyActivity">
+														<option selected="Choose...">Choose...</option>
+														<option value="Not at All">Not At All</option>
+														<option value="A Little">A Little</option>
+														<option value="Quite a Bit">Quite a Bit</option>
+														<option value="A Lot">A Lot</option>
+														<option value="Can't do anything">Can't do
+															anything</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<label for="inputHorizontalDnger" class="col-form-label">Diagnosis
+													Details</label>
+
+												<div class="form-group mb-4">
+													<select class="dropdown-with-search form-select mr-sm-2"
+														id="ppDiagnosis">
+														<option selected="Choose...">Choose...</option>
+														<option value="Somatic">Somatic</option>
+														<option value="Visceral">Visceral</option>
+														<option value="Neuropatic">Neuropatic</option>
+														<option value="Bony">Bony</option>
+														<option value="Mixed">Mixed</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<label for="inputHorizontalDnger" class="col-form-label">Ladder
+													Step</label>
+
+												<div class="form-group mb-4">
+													<select class="dropdown-with-search form-select mr-sm-2"
+														id="ppLadderStep">
+														<option selected="Choose...">Choose...</option>
+														<option value="Step I">Step I</option>
+														<option value="Step II">Step II</option>
+														<option value="Step III">Step III</option>
+														<option value="Step IV">Step IV</option>
+
+
+													</select>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group mb-3">
+													<label for="inputHorizontalDnger" class="col-form-label">Type
+														of Symptoms</label>
+													<div class="input-group mb-3" id="symptomsTypeDiv">
+														<select multiple="multiple"
+															class="form-control symptomsMasterList"
+															name="symptomsList[]" id="symptomsMasterList"></select>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+							<!-- </div>
+
+						<div class="row"> -->
+
+
+							<!-- <div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Is
+									Received Treatment For Year</label>
+								<div class="form-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="Is Received Treatment For Year"
+										id="ppIsReceivedTreatmentForYear">
+								</div>
+							</div> -->
+
+							<!-- 	</div>
+						<div class="row"> -->
+							<!-- <div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Ladder
+									Step</label>
+								<div class="form-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="Ladder Step" id="ppLadderStep">
+								</div>
+							</div> -->
+							<!-- <div class="col-md-6">
+								<label for="inputHorizontalDnger" class="col-form-label">Location
+									Of Pain</label>
+								<div class="form-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="Location Of Pain" id="ppLocationOfPain">
+								</div>
+							</div> -->
+							<!-- </div>
+						<div class="row"> -->
+
+
+
+
+							<!-- 	</div>
+						<div class="row"> -->
+
+							<!-- <div class="row" id="symptomMedicineMappingId"></div> -->
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="form-actions">
+					<div class="d-flex justify-content-between">
+						<button type="reset" class="btn btn-dark btn-width-20">Reset</button>
+						<button type="button" class="btn btn-primary btn-width-20"
+							onclick="addPatientPainAssessment()">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

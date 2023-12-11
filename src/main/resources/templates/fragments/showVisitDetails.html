@@ -1,0 +1,369 @@
+<div id="response-container" th:fragment="showVisitDetails">
+
+	<div class="visitDetailsTable" style="display: none">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						Patient Details : <span id="patient_name" style="color: blue"></span>
+					</div>
+					<div class="card-body">
+						<!-- <h4 class="card-title">
+							Patient Details : <span id="patient_name" style="color: blue"></span>
+						</h4>
+						<hr> -->
+						<div class="align-self-right text-end">
+							<button type="button"
+								class="btn waves-effect waves-light btn-primary"
+								onclick="addNewVisitDiv()">
+								<i class="fas fa-plus me-2"></i>Add New Visit
+							</button>
+
+							<!-- <button type="button"
+								class="btn waves-effect waves-light btn-primary"
+								onclick="esaDetails()">Add New ESA</button> -->
+							<!-- <button type="button"
+								class="btn waves-effect waves-light btn-primary">Add
+								Comprehensive Care Plan</button> -->
+							<!-- <button type="button" class="btn btn-info" data-bs-toggle="modal"
+								onclick="viewPrescription()"
+								data-bs-target="#prescriptionModal">View Prescription</button>
+							<button type="button" class="btn btn-info" data-bs-toggle="modal"
+								onclick="viewPainAssessment()"
+								data-bs-target="#painAssessmentModal">View Pain Assessment</button> -->
+
+							<input type="text" hidden id="addNewVisit">
+						</div>
+						<div class="table-responsive">
+							<table id="patientVisitTable"
+								class="table border table-striped table-bordered text-nowrap dataTable no-footer"
+								style="width: 100%;" role="grid">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Sr No.</th>
+										<th>Investigation Date</th>
+										<th>Next Visit Date</th>
+										<th>Present Status</th>
+										<th>Important Findings</th>
+										<th>Secondary Findings</th>
+										<th>Pain Assessment</th>
+										<th>Prescription Status</th>
+
+
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+							<div class="col-12 text-center addBtn mt-2">
+								<button class="btn waves-effect waves-light mb-3 btn-primary"
+									onclick="showPainAssessment()" id="painAssessmentButtonId">
+									<i class="fas fa-plus me-2"></i>Add Pain Assessment
+								</button>
+								<button
+									class="btn waves-effect waves-light btn-primary ms-md-2 mb-3"
+									onclick="showPrescription()" id="addPrescriptioButtonId">
+									<i class="fas fa-plus me-2"></i>Add Prescripion
+								</button>
+							</div>
+							<div class="col-12 text-center viewBtn mt-2">
+								<button type="button" class="btn btn-info ms-md-2 mb-3"
+									data-bs-toggle="modal" onclick="viewPrescription()"
+									data-bs-target="#prescriptionModal" id="viewPrescriptionId">
+									<i class="fas fa-file-prescription me-2"></i>View Prescription
+								</button>
+								<button type="button" class="btn btn-info ms-md-2 mb-3"
+									data-bs-toggle="modal" onclick="viewPainAssessment()"
+									data-bs-target="#painAssessmentModal" id="viewPainAssessmentId">
+									<i class="fas fa-hand-pointer me-2"></i>View Pain Assessment
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="prescriptionModal" tabindex="-1"
+		role="dialog" aria-labelledby="prescriptionModal" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLargeModalLabel">View
+						Prescription</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-hidden="true"></button>
+				</div>
+				<div class="modal-body" id="prescriptionPrintDiv">
+					<h3 class="modal-title text-center">APPENDIX 4 - FORM NO.3E</h3>
+					<h4 class="modal-title text-center">DETAILS OF THE PATIENTS TO
+						WHOM ESSENTIAL NARCOTIC DRUGS DISPENSED</h4>
+					<h5 class="modal-title text-center">(TO BE MAINTAINED BY
+						REGISTERED MEDDICAL PRACTIONER/RECOGNISED MEDICAL INSTITUTION)</h5>
+					<div class="table-responsive mb-4">
+						<table class="table"
+							style="border: 1px solid var(--bs-table-border-color)">
+							<tbody>
+								<tr>
+									<th scope="row" width="25%" colspan="1">UHID/IRCH NO.:</th>
+									<td width="25%" colspan="1">A34218</td>
+									<th scope="row" width="25%" colspan="1">Date:</th>
+									<td><span class="currDate" width="25%" colspan="1"></span></td>
+								</tr>
+								<tr>
+									<th scope="row" width="25%" colspan="1">AADHAAR NO. OF
+										PATIENT:</th>
+									<td width="75%" colspan="3"><span id="patientAadhaar"></span></td>
+								</tr>
+								<tr>
+									<th scope="row" width="50%" colspan="2">Patient Name:</th>
+									<td width="50%" colspan="2"><span id="patientNamePresc3e"></span></td>
+									<!-- <th scope="row" width="25%" colspan="1">Date:</th>
+									<td><span id="currDate" width="25%" colspan="1"></span></td> -->
+								</tr>
+								<tr>
+									<th width="50%" scope="row" colspan="2">Complete Postal
+										Address (with contact number):</th>
+									<td width="50%" colspan="2"><span id="patientAddress"></span></td>
+								</tr>
+								<tr>
+									<th width="50%" scope="row" colspan="2">Brief description
+										of illness:</th>
+									<td width="50%" colspan="2">Sore throat, difficulty
+										swallowing, hoarseness, ear pain, and unexplained weight loss</td>
+								</tr>
+								<tr>
+									<th width="50%" scope="row" colspan="2">Whether registered
+										with any, other registered medical practitioner /recognized
+										medical institution:</th>
+									<td colspan="2">No</td>
+								</tr>
+								<tr>
+									<th width="50%" scope="row" colspan="2">Details of the
+										essential narcotic drugs dispensed (If, yes details to be
+										recorded):</th>
+									<td width="50%" colspan="2">No</td>
+								</tr>
+								<tr>
+									<th width="50%" scope="row" colspan="2">Name of
+										Consultant:</th>
+									<td width="50%" colspan="2">Dr. <span id="docNamePresc3e"></span></td>
+								</tr>
+								<tr>
+									<td colspan="4" style="padding: 0"><div
+											class="table-responsive">
+											<table class="table table-bordered mb-0">
+												<thead>
+													<tr>
+														<th scope="col" width="10%">Date</th>
+														<th scope="col" width="30%">Name of the essential narcotic drus</th>
+														<th scope="col" width="10%">Quantity</th>
+														<th scope="col" width="20%">Signature/Thumb Impression of the
+															patient</th>
+														<th scope="col" width="30%">Remarks,if any</th>
+													</tr>
+												</thead>
+												<tbody id="form3eData">
+													<!-- <tr>
+														<td>08-06-2023</td>
+														<td>Tramadol 50 mg</td>
+														<td>34</td>
+														<td></td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>08-06-2023</td>
+														<td>Tramadol 50 mg</td>
+														<td>34</td>
+														<td></td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>08-06-2023</td>
+														<td>Tramadol 50 mg</td>
+														<td>34</td>
+														<td></td>
+														<td></td>
+													</tr> -->
+												</tbody>
+											</table>
+										</div></td>
+								</tr>
+								<tr>
+									<th colspan="2" rowspan="1"><h3 class="fs-2">AIIMS</h3> <br>Address:
+										Pune <br>Tele: +919988554466<br></th>
+									<th class="text-center" colspan="2" rowspan="1"
+										style="border-left: 1px solid var(--bs-table-border-color)"><br> <br> <br> Signature<br> 
+										<hr> Doctor Reg No.<br><span id="doctorRegNo"></span>
+									</th>
+								</tr>
+							</tbody>
+						</table>
+						<p class="text-end">
+							Next Visit Date: <span>15-11-2023</span>
+						</p>
+					</div>
+					<div class="row" style="page-break-before: always;">
+						<div class="col-12"> 
+							<h3 class="modal-title text-center">PRESCRIPTION</h3>
+							<h4 class="modal-title text-center">अखिल भारतीय चिकित्सा
+								विज्ञान संस्थान(ALL INDIA INSITUTE OF MEDICAL SCIENCES)</h4>
+							<!-- <h6 class="modal-title text-center">(ANSARI )</h6> -->
+							
+							<p class="px-3 d-flex justify-content-between"><span>दिनांक/Date: <span class="currDate"></span></span><span>समय/Time: <span class="currTime"></span></span></p>
+							<h4 class="modal-title">
+								PRESCRIPTION ID: <span id="pvId"></span>
+							</h4>
+							
+						</div>
+					</div>
+					<div class="table-responsive">
+						<table class="table"
+							style="border: 1px solid var(--bs-table-border-color)">
+							<tbody>
+								<tr>
+									<th scope="row" width="25%" colspan="1">नाम/Name:</th>
+									<td width="25%" colspan="1"><span id="patientNamePresc"></span></td>
+									<th scope="row" colspan="1">आयु/Age:</th>
+									<td colspan="1"><span id="pAge"></span></td>
+								</tr>
+								<tr>
+									<th scope="row" colspan="1">जन्म तिथि/Date of Birth:</th>
+									<td colspan="1"><span id="pDob"></span></td>
+									<th scope="row" width="25%" colspan="1">रोग/Disease:</th>
+									<td>Cancer</td>
+								</tr>
+								<tr>
+									<td colspan="4" style="padding: 0"><div
+											class="table-responsive">
+											<table class="table table-bordered mb-0">
+												<thead>
+													<tr>
+														<th scope="col">Medicine</th>
+														<th scope="col">No of days</th>
+														<th scope="col">Days Interval</th>
+														<th scope="col">Medicine In a Days</th>
+														<th scope="col">Medicine Quantity</th>
+														<th scope="col">Medicine Remark</th>
+													</tr>
+												</thead>
+												<tbody id="symptomMedicineTable">
+
+												</tbody>
+											</table>
+										</div></td>
+								</tr>
+								<tr>
+									<th colspan="2" rowspan="1"><h3 class="fs-2">AIIMS</h3> <br>Address:
+										Pune <br>Tele: +919988554466<br></th>
+									<th class="text-center" colspan="2" rowspan="1"
+										style="border-left: 1px solid var(--bs-table-border-color)"><br>
+										<br> <br>Signature
+										<hr>Dr. <span id="docName"></span></th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<button type="button" class="btn btn-light btn-width-20" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary btn-width-20"
+						onclick="printPrescription()">Print</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<div class="modal fade" id="painAssessmentModal" tabindex="-1"
+		role="dialog" aria-labelledby="painAssessmentModal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLargeModalLabel">View Pain
+						Assessment</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-hidden="true"></button>
+				</div>
+				<div class="modal-body" id="painAssessmentPrintDiv">
+					<div class="table-responsive">
+						<table class="table"
+							style="border: 1px solid var(--bs-table-border-color)">
+							<tbody id="painAssessmentData">
+								<tr>
+									<th colspan="1" width="25%">Max Pain Experienced</th>
+									<td colspan="1" width="25%"><span id="maxPainExpPreview"></span></td>
+									<th colspan="1" width="25%">NRS representing Least pain</th>
+									<td colspan="1" width="25%"><span id="leastPainExpPreview"></span></td>
+								</tr>
+								<tr>
+									<th colspan="1" width="25%">Pain Maximum at:</th>
+									<td colspan="1" width="25%"><span id="painMaxPreview"></span></td>
+									<th colspan="1" width="25%">Does it radiate from the point
+										of origin</th>
+									<td colspan="1" width="25%"><span
+										id="radiateFromPointPreview"></span></td>
+								</tr>
+								<tr>
+									<th colspan="1" width="25%">Worsened by activity</th>
+									<td colspan="1" width="25%"><span
+										id="worsenedActivityPreview"></span></td>
+									<th colspan="1" width="25%">Position/posture gives relief</th>
+									<td colspan="1" width="25%"><span
+										id="reliefPosturePreview"></span></td>
+								</tr>
+								<tr>
+									<th colspan="1" width="25%">Have you received treatment
+										for your pain</th>
+									<td colspan="1" width="25%"><span
+										id="treamentReceivedPreview"></span></td>
+									<th colspan="1" width="25%">Pain relief after medication</th>
+									<td colspan="1" width="25%"><span
+										id="painReliefMedicationPreview"></span></td>
+								</tr>
+								<tr>
+									<th colspan="1" width="25%">How long relief last</th>
+									<td colspan="1" width="25%"><span id="reliefLastPreview"></span></td>
+									<th colspan="1" width="25%">Describe the type of pain</th>
+									<td colspan="1" width="25%"><span id="typeOfPainPreview"></span></td>
+								</tr>
+								<tr>
+									<th colspan="1" width="25%">How much does pain interfere
+										with daily activity?</th>
+									<td colspan="1" width="25%"><span
+										id="interfereDailyActivityPreview"></span></td>
+									<th colspan="1" width="25%">Pain daignosis</th>
+									<td colspan="1" width="25%"><span
+										id="painDaignosisPreview"></span></td>
+								</tr>
+								<tr>
+									<th colspan="1" width="25%">WHO ladder step</th>
+									<td colspan="1" width="25%"><span id="ladderStepPreview"></span></td>
+									<th colspan="1" width="25%">Other symptoms</th>
+									<td colspan="1" width="25%"><span id="otherSymptomPreview"></span></td>
+								</tr>
+								<tr>
+									<th colspan="1" width="25%">Pain Details</th>
+									<th colspan="3" width="25%"><div id="imageContainer"
+											style="position: relative;">
+											<!-- Image will be added here -->
+										</div></th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<button type="button" class="btn btn-light btn-width-20" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary btn-width-20"
+						onclick="printPainAssessment()">Print</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>

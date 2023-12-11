@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16"
+	href="../assets/images/aiimsLogo.png">
+<title>Home</title>
+<!-- Custom CSS -->
+<link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+<link href="../assets/libs/chartist/dist/chartist.min.css"
+	rel="stylesheet">
+<link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="../assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet"
+	href="../assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">
+<!-- Custom CSS -->
+<link href="../dist/css/style.min.css" rel="stylesheet">
+
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- apps -->
+<!-- apps -->
+<script src="../dist/js/app-style-switcher.js"></script>
+<script src="../dist/js/feather.min.js"></script>
+<script
+	src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="../dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="../dist/js/custom.min.js"></script>
+<!--This page JavaScript -->
+<script src="../assets/extra-libs/c3/d3.min.js"></script>
+<script src="../assets/extra-libs/c3/c3.min.js"></script>
+<script src="../assets/libs/chartist/dist/chartist.min.js"></script>
+<script
+	src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<script
+	src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+<script
+	src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+<script src="../dist/js/pages/dashboards/dashboard1.min.js"></script>
+<!-- for data tables -->
+<script
+	src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="../assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
+<script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
+<script type="text/javascript" th:src="@{/js/custom/symptom.js}"></script>
+<style type="text/css">
+.jqstooltip {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	visibility: hidden;
+	background: rgb(0, 0, 0) transparent;
+	background-color: rgba(0, 0, 0, 0.6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,
+		endColorstr=#99000000);
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+	color: white;
+	font: 10px arial, san serif;
+	text-align: left;
+	white-space: nowrap;
+	padding: 5px;
+	border: 1px solid white;
+	z-index: 10000;
+}
+
+.jqsfield {
+	color: white;
+	font: 10px arial, san serif;
+	text-align: left;
+}
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+	#prescriptionPrintDiv * {
+		visibility: visible;
+	}
+	#painAssessmentPrintDiv * {
+		visibility: visible;
+	}
+}
+</style>
+</head>
+<body>
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper" data-theme="light" data-layout="vertical"
+		data-navbarbg="skin6" data-sidebartype="full"
+		data-sidebar-position="fixed" data-header-position="fixed"
+		data-boxed-layout="full">
+
+		<div th:replace="fragments/header::header"></div>
+
+		<div th:replace="fragments/pharmacistSidebar::pharmacistSidebar"></div>
+
+		<div class="page-wrapper ">
+
+
+			<!-- add symptom div start -->
+			<div class="container-fluid symptomDiv">
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-header">Add New Symptom</div>
+							<div class="card-body">
+								<div class="form-body">
+									<div class="row">
+										<label class="form-label col-md-2">Symptom : </label>
+										<div class="col-md-6">
+											<div class="form-group mb-3">
+												<input type="text" class="form-control"
+													placeholder="Symptom name" aria-label="Symptom name"
+													aria-describedby="basic-addon2" id="symtomName">
+											</div>
+										</div>
+										<!-- <div class="col-md-2"></div> -->
+										<div class="form-actions col-md-2">
+											<div class="">
+												<button class="btn btn-primary w-100" type="button"
+													onclick="addSymptom()">Add</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+						<div class="card-header">Symptom Updation History</div>
+							<div class="card-body">
+								<div class="">
+									<div id="zero_config_wrapper"
+										class="dataTables_wrapper container-fluid dt-bootstrap4">
+										<div class="row">
+											<div class="col-sm-12">
+												<table id="symptom_data_table"
+													class="table border table-striped table-bordered text-nowrap dataTable"
+													role="grid" aria-describedby="zero_config_info">
+													<thead>
+														<tr role="row">
+															<th class="sorting_asc" tabindex="0"
+																aria-controls="zero_config" rowspan="1" colspan="1"
+																aria-sort="ascending"
+																aria-label="Name: activate to sort column descending"
+																style="width: 0px;">Symptom Name</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="zero_config" rowspan="1" colspan="1"
+																aria-label="Position: activate to sort column ascending"
+																style="width: 0px;">Symptom Saving Date</th>
+															<!-- <th class="sorting" tabindex="0"
+															aria-controls="zero_config" rowspan="1" colspan="1"
+															aria-label="Position: activate to sort column ascending"
+															style="width: 0px;">Symptom Status</th> -->
+														</tr>
+													</thead>
+													<tbody id='symtomTableBody'>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--  end-->
+
+			<footer class="footer text-center text-muted"> All Rights
+				Reserved by AIIMS. </footer>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

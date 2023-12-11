@@ -1,0 +1,791 @@
+<div class="container-fluid patientDetailsDiv" th:fragment="addPatient">
+	<script>
+		$(document).ready(function() {
+			$("#stateDetails").change(function() {
+				var selectedValue = $(this).val();
+				var data = {
+					"lgdStateCode" : selectedValue
+				}
+				$.ajax({
+					url : '/patient/getDistrictByStateId',
+					method : "POST",
+					contentType : "application/json",
+					data : JSON.stringify(data),
+					success : function(data) {
+						console.log(data)
+						$('#district').empty();
+						var optionDefault = $('<option>');
+						optionDefault.val(null);
+						optionDefault.text('---Select City---')
+						$('#district').append(optionDefault);
+						$.each(data, function(index, optionData) {
+
+							// Create a new option element
+							var option = $('<option>');
+
+							// Set the option's value and text based on the data
+							option.val(optionData.lgdDistrictCode); // Replace with the appropriate property from your data
+							option.text(optionData.districtName); // Replace with the appropriate property from your data
+
+							// Append the option to the select element
+							$('#district').append(option);
+						});
+					},
+					error : function() {
+						console.log("AJAX call failed");
+					}
+				});
+			});
+		});
+	</script>
+	<div class="row">
+
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Basic Details</div>
+				<div class="card-body">
+					<!-- <h4 class="card-title">Basic Details</h4>
+					<hr> -->
+					<div class="col-lg-12" id="passwordDiv">
+						<div class="form-group mb-12">
+							<div class="row">
+								<div class="col-md-6">
+									<label class="col-form-label text-dark" for="centerCode">Center
+										Code</label>
+									<div class="form-group mb-3">
+										<select id='centerDetailsId' class="dropdown-with-search form-select mr-sm-2">
+											<option th:each="c : ${centerDetails}"
+												th:value="${c.centerId}" th:text="${c.centerName}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="opdOripd" class="col-form-label">Enrollment
+										of Patient from OPD or IPD</label>
+									<div class="form-group mb-3">
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="IPDOROPD"
+												id="opd" value="opd"> <label
+												class="form-check-label" for="opd">Out Patient
+												Department(OPD)</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="IPDOROPD"
+												id="ipd" value="ipd"> <label
+												class="form-check-label" for="ipd">IN-Patient
+												Department(IPD)</label>
+										</div>
+									</div> 
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Patient
+										Registration No</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											placeholder="Enter Patient Registration no" id="patientRegNo">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Personal Details</div>
+				<div class="card-body">
+					<!-- <h4 class="card-title">Personal Details</h4>
+					<hr> -->
+					<form action="#">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Name</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											placeholder="Enter Name of Patient" id="patientName">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">User
+										ID / Email</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											placeholder="Enter UserId/Email of Patient" id="userId">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Password</label>
+									<div class="form-group mb-3">
+										<input type="password" class="form-control"
+											placeholder="Enter Password" id="passwrord">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Mobile</label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											placeholder="Enter Patient Mobile Number" id="userMobile">
+									</div>
+								</div>
+							</div>
+
+							<!-- <div class="row">
+											<div class="col-md-6">
+												<label for="inputHorizontalDnger" class="col-form-label">Alternate
+													Mobile</label>
+												<div class="form-group mb-3">
+													<input type="text" class="form-control"
+														placeholder="Enter Alternate Mobile Number"
+														id="alternateMobile">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label for="inputHorizontalDnger" class="col-form-label">Address</label>
+												<div class="form-group mb-3">
+													<input type="text" class="form-control"
+														placeholder="Enter Address" id="address">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label for="inputHorizontalDnger" class="col-form-label">User
+													Description</label>
+												<div class="form-group mb-3">
+													<input type="text" class="form-control"
+														placeholder="User Description" id="userDescription">
+												</div>
+											</div>
+										</div> -->
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Aadhaar
+										Number</label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											placeholder="Enter Aadhaar Number" id="userUniqueId">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label col-12">Gender</label>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="gender"
+											id="genderM" value="male"> <label
+											class="form-check-label" for="genderM">Male</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="gender"
+											id="genderF" value="female"> <label
+											class="form-check-label" for="genderF">Female</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="gender"
+											id="genderO" value="other"> <label
+											class="form-check-label" for="genderO">Others</label>
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Date
+										of Birth</label>
+									<div class="form-group mb-3">
+										<input type="date" class="form-control" id="dob"
+											placeholder="Enter Date of Birth">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Education
+										Qualification</label>
+									<!-- <div class="form-group mb-3">
+										<input type="text" class="form-control" id="eduQualification"
+											placeholder="Enter Education Qualification">
+									</div> -->
+									<div class="form-group mb-4">
+										<select class="dropdown-with-search form-select mr-sm-2" id="eduQualification">
+											<option selected="">Choose...</option>
+											<option value="Profession or Honours">Profession or
+												Honours</option>
+											<option value="Graduate">Graduate</option>
+											<option value="Intermediate or diploma">Intermediate
+												or diploma</option>
+											<option value="High School Certificate">High School
+												Certificate</option>
+											<option value="Middle School Certificate">Middle
+												School Certificate</option>
+											<option value="Primary School Certificate">Primary
+												School Certificate</option>
+											<option value="Uneducated">Uneducated</option>
+											<option value="others">Others</option>
+										</select>
+										<div class="form-group mb-3" style="display: none"
+											id="otherInputEducation">
+											<input type="text" class="form-control"
+												placeholder="If other, please specify"
+												id="otherInputEducation_1">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Occupation
+										of Patient</label>
+									<div class="form-group mb-4">
+										<select class="dropdown-with-search form-select mr-sm-2" id="occupationOfPatient">
+											<option selected="">Choose...</option>
+											<option value="Legislator,Senior Officials or Managers">Legislator,Senior
+												Officials or Managers</option>
+											<option value="professionals">Professionals</option>
+											<option value="Technicians and Associate Professionals">Technicians
+												and Associate Professionals</option>
+											<option value="clerk">Clerks</option>
+											<option
+												value="Skilled Workers and Shop & Market Sales Workers">Skilled
+												Workers and Shop & Market Sales Workers</option>
+											<option value="Skilled Agriculture & Fishery Workers">Skilled
+												Agriculture & Fishery Workers</option>
+											<option value="Craft and Relate Trade Workers">Craft
+												and Relate Trade Workers</option>
+											<option value="Plant and Machine Operators & Assemblers">Plant
+												and Machine Operators & Assemblers</option>
+											<option value="Elementary Occupation">Elementary
+												Occupation</option>
+											<option value="unemployed">Unemployed</option>
+											<option value="others">Others</option>
+										</select>
+										<div class="form-group mb-3" style="display: none"
+											id="otherInputOccupation">
+											<input type="text" class="form-control"
+												placeholder="If other, please specify"
+												id="occupationOtherInput">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label col-12">Marital
+										Status</label>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="maritalStatus" id="maritalStatusM" value="married">
+										<label class="form-check-label" for="maritalStatusM">Married</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="maritalStatus" id="maritalStatusNM"
+											value="nevermarried"> <label class="form-check-label"
+											for="maritalStatusNM">Never Married</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="maritalStatus" id="maritalStatusW" value="widow">
+										<label class="form-check-label" for="maritalStatusW">Widow</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="maritalStatus" id="maritalStatusS" value="seperated">
+										<label class="form-check-label" for="maritalStatusS">Separated</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="maritalStatus" id="maritalStatusD" value="divorced">
+										<label class="form-check-label" for="maritalStatusD">Divorced</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="maritalStatus" id="maritalStatusO" value="others">
+										<label class="form-check-label" for="maritalStatusO">Others</label>
+									</div>
+									<div class="form-group mb-3" style="display: none"
+										id="maritalStatusOther">
+										<input type="text" class="form-control"
+											placeholder="If other, please specify"
+											id="maritalStatusOtherInput">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Language
+										Known:</label>
+									<div class="form-group mb-3" id="languageKnown">
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="langKnown" id="hindi" value="hindi"> <label
+												class="form-check-label" for="surgery">Hindi</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="langKnown" id="english" value="english"> <label
+												class="form-check-label" for="radiotherapy">English</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="langKnown" id="marathi" value="marathi"> <label
+												class="form-check-label" for="chemotherapy">Marathi</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="langKnown" id="gujarati" value="gujarati"> <label
+												class="form-check-label" for="chemotherapy">Gujarati</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="langKnown" id="langOther" value="others"> <label
+												class="form-check-label" for="others">Other</label>
+										</div>
+										<div class="form-group mb-3" style="display: none"
+											id="otherInputLanguage">
+											<input type="text" class="form-control"
+												placeholder="If other, please specify"
+												id="languageOtherInput">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label col-12">Housing
+										Status</label>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="housingStatus" id="housingStatusH" value="male">
+										<label class="form-check-label" for="genderM">Housed</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="housingStatus" id="housingStatusU" value="female">
+										<label class="form-check-label" for="genderF">Unhoused
+											(Rented)</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="housingStatus" id="housingStatusS" value="female">
+										<label class="form-check-label" for="genderF">Street</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="housingStatus" id="housingStatusO" value="others">
+										<label class="form-check-label" for="genderO">Others</label>
+									</div>
+									<div class="form-group mb-3" style="display: none"
+										id="otherInputHousingStatus">
+										<input type="text" class="form-control"
+											placeholder="If other, please specify"
+											id="housingStatusOtherInput">
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Family Details</div>
+				<div class="card-body">
+					<!-- <h4 class="card-title">Family Details</h4>
+					<hr> -->
+					<form action="#">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Primary
+										Care Giver Name</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											placeholder="Enter Primary Care Giver Name" id="careGiver">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Primary
+										Care Giver Relation with Patient</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											placeholder="Enter Primary Care Giver Relation With Patient"
+											id="careGiverRelation">
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">No.
+										of Son </label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											placeholder="Enter Son Name" id="sons">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">No.
+										of Daughter </label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											placeholder="Enter Daughter Name" id="daughter">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">No.
+										of Dependent Children</label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											placeholder="Enter Dependent Children Name"
+											id="dependentChildren">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">No
+										of Married Daughter </label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											placeholder="Enter Married Daughter Name"
+											id="marriedDaughter">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Earning
+										Member Names</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											placeholder="Enter Earning Member Name" id="earningMemb">
+									</div>
+								</div>
+								<!-- <div class="col-md-6">
+												<label for="inputHorizontalDnger" class="col-form-label">Patient
+													Current Socio Economic Status</label>
+												<div class="form-group mb-3">
+													<input type="text" class="form-control"
+														placeholder="Patient Current Socio Economic Status"
+														id="pCurrentSocioEconomicStatus">
+												</div>
+											</div> -->
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Socio-Economic Status of Patient</div>
+				<div class="card-body">
+					<!-- <h4 class="card-title">Socio-Economic Status of Patient</h4>
+					<hr> -->
+					<form action="#">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Education
+										of Head of the Family</label>
+									<div class="form-group mb-4">
+										<select class="dropdown-with-search form-select mr-sm-2" id="familyHeadEdu">
+											<option selected="">Choose...</option>
+											<option value="Profession or Honours">Profession or
+												Honours</option>
+											<option value="Graduate">Graduate</option>
+											<option value="Intermediate or diploma">Intermediate
+												or diploma</option>
+											<option value="High School Certificate">High School
+												Certificate</option>
+											<option value="Middle School Certificate">Middle
+												School Certificate</option>
+											<option value="Primary School Certificate">Primary
+												School Certificate</option>
+											<option value="Uneducated">Uneducated</option>
+											<option value="others">Others</option>
+										</select>
+										<div class="form-group mb-3" style="display: none"
+											id="familyHeadEduOthers">
+											<input type="text" class="form-control"
+												placeholder="If other, please specify"
+												id="familyHeadEduOtherInput">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Occupation
+										of Head of the Family</label>
+									<div class="form-group mb-4">
+										<select class="dropdown-with-search form-select mr-sm-2" id="familyHeadOc">
+											<option selected="">Choose...</option>
+											<option value="Legislator,Senior Officials or Managers">Legislator,Senior
+												Officials or Managers</option>
+											<option value="professionals">Professionals</option>
+											<option value="Technicians and Associate Professionals">Technicians
+												and Associate Professionals</option>
+											<option value="clerk">Clerks</option>
+											<option
+												value="Skilled Workers and Shop & Market Sales Workers">Skilled
+												Workers and Shop & Market Sales Workers</option>
+											<option value="Skilled Agriculture & Fishery Workers">Skilled
+												Agriculture & Fishery Workers</option>
+											<option value="Craft and Relate Trade Workers">Craft
+												and Relate Trade Workers</option>
+											<option value="Plant and Machine Operators & Assemblers">Plant
+												and Machine Operators & Assemblers</option>
+											<option value="Elementary Occupation">Elementary
+												Occupation</option>
+											<option value="unemployed">Unemployed</option>
+											<option value="others">Others</option>
+										</select>
+										<div class="form-group mb-3" style="display: none"
+											id="otherInputFamilyHeadOcc">
+											<input type="text" class="form-control"
+												placeholder="If other, please specify"
+												id="familyHeadOccOtherInput">
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Income
+										of Head of the Family</label>
+									<div class="form-group mb-4">
+										<select class="dropdown-with-search form-select mr-sm-2" id="familyHeadInc">
+											<option selected="">Choose...</option>
+											<option value="185895">&ge; 185895</option>
+											<option value="92951 - 185894">92951 - 185894</option>
+											<option value="69535 - 92950">69535 - 92950</option>
+											<option value="46475 - 69534">46475 - 69534</option>
+											<option value="27883 - 46474">27883 - 46474</option>
+											<option value="9308 - 27882">9308 - 27882</option>
+											<option value="9308">&le; 9308</option>
+										</select>
+										<div class="form-group mb-3" style="display: none"
+											id="otherInputEducation">
+											<input type="text" class="form-control"
+												placeholder="If other, please specify"
+												id="familyHeadIncOther">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Address Details</div>
+				<!-- <h4 class="card-title"></h4>
+				<hr> -->
+				<div class="card-body">
+					<form action="#">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="address" class="col-form-label">Address</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											placeholder="Enter Address" id="address">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Distance
+										from Home to NCI/IRCH(In KM)</label>
+									<div class="form-group mb-3">
+										<input type="number" class="form-control"
+											placeholder="Enter Distance from home to NCI" id="distToNCI">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">State</label>
+									<!-- <div class="form-group mb-3">
+										<input type="text" class="form-control" id="eduQualification"
+											placeholder="Enter Education Qualification">
+									</div> -->
+									<div class="form-group mb-4">
+										<select class="dropdown-with-search form-select mr-sm-2" id="stateDetails">
+											<option selected="0">Choose...</option>
+											<option th:each="state: ${stateDetails}"
+												th:value="${state.lgdStateCode}"
+												th:text="${state.stateName}"></option>
+
+
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">City</label>
+									<!-- <div class="form-group mb-3">
+										<input type="text" class="form-control" id="eduQualification"
+											placeholder="Enter Education Qualification">
+									</div> -->
+									<div class="form-group mb-4">
+										<select class="dropdown-with-search form-select mr-sm-2" id="district">
+											<option selected="0">Choose...</option>
+
+										</select>
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label col-12">Mode
+										of transport</label>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="modeOfTrans" id="modeOfTransCar" value="car"> <label
+											class="form-check-label" for="modeOfTransCar">Car</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="modeOfTrans" id="modeOfTransBike" value="bike">
+										<label class="form-check-label" for="modeOfTransBike">Bike</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="modeOfTrans" id="modeOfTransAir" value="air"> <label
+											class="form-check-label" for="modeOfTransAir">Air</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="modeOfTrans" id="modeOfTransWalk" value="walk">
+										<label class="form-check-label" for="modeOfTransWalk">Walking</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="modeOfTrans" id="modeOfTransTaxi" value="taxi">
+										<label class="form-check-label" for="modeOfTransTaxi">Taxi</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											name="modeOfTrans" id="modeOfTransTrain" value="Train">
+										<label class="form-check-label" for="modeOfTransTrain">Train</label>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">Diagnosis</div>
+				<div class="card-body">
+					<!-- <h4 class="card-title">Diagnosis</h4>
+					<hr> -->
+					<form action="#">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="address" class="col-form-label">When Cancer
+										was diagnosed?</label>
+									<div class="form-group mb-3">
+										<input type="date" class="form-control"
+											placeholder="Enter when cancer was diagnosed"
+											id="cancerDiagnose">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Stage
+										of Cancer</label>
+									<div class="form-group mb-3">
+										<select class="dropdown-with-search form-control"
+											id="stageOfCancer" >
+											<option selected="">Choose...</option>
+											<option value="stage1">Stage - I</option>
+											<option value="stage2">Stage - II</option>
+											<option value="stage3">Stage - III</option>
+											<option value="stage4">Stage - IV</option>
+											<option value="stage5">Stage - V</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Current
+										Diagnosis</label>
+									<div class="form-group mb-3">
+										<textarea type="text" class="form-control" rows="3"
+											placeholder="Current Diagnosis" id="pdCurrentDiagnosis"></textarea>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class="col-form-label">Treatment
+										Received</label>
+									<div class="form-group mb-3" id="treatmentReceivedId">
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="treatmentRecieved" id="surgery" value="surgery">
+											<label class="form-check-label" for="surgery">Surgery</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="treatmentRecieved" id="radiotherapy"
+												value="radiotherapy"> <label
+												class="form-check-label" for="radiotherapy">Radiotherapy</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="treatmentRecieved" id="chemotherapy"
+												value="chemotherapy"> <label
+												class="form-check-label" for="chemotherapy">Chemotherapy</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="treatmentRecieved" id="treatmentReceivedOther"
+												value="others"> <label class="form-check-label"
+												for="other">Other</label>
+										</div>
+										<div class="form-group mb-3" style="display: none"
+											id="otherInputTreatmentReceived">
+											<textarea type="text" class="form-control"
+												placeholder="If other, please specify"
+												id="treatmentReceivedOtherInput"></textarea>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="inputHorizontalDnger" class=" col-form-label">Treatment
+										Details</label>
+									<div class="form-group mb-3">
+										<input type="text" class="form-control"
+											placeholder="Treatment Details" id="pdTreatmentDetails">
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<form action="#">
+						<div class="form-body">
+							<div class="form-actions">
+								<div class="d-flex justify-content-between">
+									<button type="reset" class="btn btn-dark btn-width-20">Reset</button>
+									<button type="button" class="btn btn-primary btn-width-20"
+										onclick="addPatientDetails()">Submit</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

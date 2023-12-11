@@ -1,0 +1,142 @@
+<style>
+#medicineRemark {
+	width: 100%;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box; /* Firefox, other Gecko */
+	box-sizing: border-box; /* Opera/IE 8+ */
+}
+</style>
+<div class="row" id="patientPrescriptionDiv"
+	th:fragment="patientPrescription" style="display: none">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">Add Patient Prescription</div>
+			<div class="card-body">
+				<!-- <h4 class="card-title">Add Patient Prescription</h4> -->
+
+				<!-- <div class="col-6 ">
+					<label for="dropdownMedicine" class="col-form-label">Select
+						Medicine</label>
+					<div class="form-group mb-3">
+						<select class="form-select mr-sm-2" id="dropdownMedicine" multiple>
+						</select>
+					</div>
+				</div> -->
+
+
+				<div class="table-responsive" id="symptomMedicineMappingId">
+					<table id="symptomTable" class="table border table-bordered">
+						<!-- <thead>
+										<tr>
+											<th>How many days claim</th>
+											<th>Days Interval</th>
+											<th>Medicine in a Day</th>
+											<th>Quantity of Medicine</th>
+										</tr>
+									</thead> -->
+						<tbody>
+							<tr>
+								<th>Select Medicine</th>
+								<td colspan="3"><select class="form-select mr-sm-2"
+									id="dropdownMedicine" multiple>
+								</select></td>
+							</tr>
+							<tr>
+								<th>How many days claim</th>
+								<td><input type="text" class="form-control"
+									placeholder="Enter days claim" aria-label="Enter days claim"
+									aria-describedby="basic-addon2" id="daysclaim"
+									onchange=caluclateMedicineCount()></td>
+								<th>Days Interval</th>
+								<td><input type="text" class="form-control"
+									placeholder="Enter Days Interval"
+									aria-label="Enter Days Interval"
+									aria-describedby="basic-addon2" id="DaysInterval"
+									onchange=caluclateMedicineCount()></td>
+								<!-- <td><input type="text" class="form-control"
+												placeholder="Enter Medicine in a Day"
+												aria-label="Enter Medicine in a Day"
+												aria-describedby="basic-addon2" id="MedicineinaDay"
+												onchange=caluclateMedicineCount()></td>
+											<td><input type="text" class="form-control"
+												placeholder="Total Medicine Count"
+												aria-label="Total Medicine Count"
+												aria-describedby="basic-addon2" id="TotalMedicineCount"></td> -->
+							</tr>
+							<tr>
+								<th>Medicine in a Day</th>
+								<td><input type="text" class="form-control"
+									placeholder="Enter Medicine in a Day"
+									aria-label="Enter Medicine in a Day"
+									aria-describedby="basic-addon2" id="MedicineinaDay"
+									onchange=caluclateMedicineCount()></td>
+								<th>Quantity of Medicine</th>
+								<td><input type="text" class="form-control"
+									placeholder="Total Medicine Count"
+									aria-label="Total Medicine Count"
+									aria-describedby="basic-addon2" id="TotalMedicineCount"></td>
+							</tr>
+							<tr>
+								<th>Remarks</th>
+								<td colspan="3"><textarea id="medicineRemark" rows="4"
+										placeholder="Please Enter Medicine Prescription Related Remark"> </textarea></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row">
+					<div class="text-end mb-3">
+						<button type="button" id="addMedicineToPrescriptionTable"
+							class="btn btn-success">
+							<i class="fas fa-tablets me-2"></i>Add Medicine
+						</button>
+					</div>
+				</div>
+
+				<!-- Medicine Prescribed Datatable  -->
+				<div class="table-responsive" id="symptomMedicineMappingId2"
+					style="display: none">
+					<table id="symptomTable" class="table border table-bordered">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Medicine Name</th>
+								<th>How many days claim</th>
+								<th>Days Interval</th>
+								<th>Medicine in a Day</th>
+								<th>Quantity of Medicine</th>
+								<th>Remark</th>
+							</tr>
+						</thead>
+						<tbody id='prescribedMedicineDataTable'>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-8">
+					<input type="text" id="showPrescriptionPatientId" hidden /> <input
+						type="text" id="showPrescriptionPatientvisitId" hidden />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12" style="display: none"
+					id="submitPrescription">
+		<div class="card">
+			<div class="card-body">
+				<div class="form-actions" >
+					<div class="d-flex justify-content-between">
+						<button type="button" class="btn btn-dark btn-width-20"
+							onclick="removeMedicine()">Remove</button>
+						<button type="button" class="btn btn-primary btn-width-20"
+							onclick="addPrescription()">Submit</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

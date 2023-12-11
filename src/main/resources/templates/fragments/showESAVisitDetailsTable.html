@@ -1,0 +1,101 @@
+<div id="response-container" th:fragment="showESAVisitDetailsTable">
+	<div class="esaVisitDetailsTable" style="display: none">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">Patient ESA Details</div>
+					<div class="card-body">
+						<!-- <h4 class="card-title">Patient ESA Details</h4>
+						<hr> -->
+						<div class="row">
+							<div class="col-12 text-end">
+								<button type="button" id="addNewESA"
+									class="btn waves-effect waves-light mb-3 btn-primary"
+									onclick="esaDetails()"><i class="fas fa-plus me-2"></i>Add New Edmonton Symptom
+									Assessment</button>
+								<button type="button" id="viewESAStatistics"
+									class="btn waves-effect waves-light mb-3 btn-primary"
+									onclick="viewESAStatistics()"><i class="far fa-chart-bar me-2"></i>View Statistics</button>
+							</div>
+						</div>
+
+						<div class="table-responsive">
+							<table id="esa_data_table"
+								class="table border table-striped table-bordered text-nowrap dataTable"
+								role="grid" aria-describedby="zero_config_info">
+								<thead>
+									<tr role="row">
+										<th class="sorting_asc" tabindex="0"
+											aria-controls="zero_config" rowspan="1" colspan="1"
+											aria-sort="ascending"
+											aria-label="Name: activate to sort column descending"
+											style="width: 0px;">Sr. No</th>
+										<th class="sorting" tabindex="0" aria-controls="zero_config"
+											rowspan="1" colspan="1"
+											aria-label="Position: activate to sort column ascending"
+											style="width: 0px;">ESA Date</th>
+										<th class="sorting" tabindex="0" aria-controls="zero_config"
+											rowspan="1" colspan="1"
+											aria-label="Position: activate to sort column ascending"
+											style="width: 0px;">Completed By</th>
+										<th class="sorting" tabindex="0" aria-controls="zero_config"
+											rowspan="1" colspan="1"
+											aria-label="Position: activate to sort column ascending"
+											style="width: 0px;">Action</th>
+										<!-- <th class="sorting" tabindex="0"
+															aria-controls="zero_config" rowspan="1" colspan="1"
+															aria-label="Position: activate to sort column ascending"
+															style="width: 0px;">Symptom Status</th> -->
+									</tr>
+								</thead>
+								<tbody id='esaTableBody'>
+
+								</tbody>
+
+							</table>
+
+						</div>
+						<!--  end-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade container-fluid" id="ESAModal" tabindex="-1"
+		role="dialog" aria-labelledby="ESAModal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">View Edmonton Symptom Assessment</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-hidden="true"></button>
+				</div>
+				<div>
+
+					<div class=" d-flex flex-column align-items-center">
+						<div id="eSAMap"></div>
+						<!-- <div class="table-responsive">
+						<table class="table"
+							style="border: 1px solid var(- -bs-table-border-color)">
+							<tbody>
+							<thead>
+								<tr>
+									<th>Sr No.</th>
+									<th>Symptom Name</th>
+									<th>Symptom Scale No.</th>
+								</tr>
+							</thead>
+
+							</tbody>
+						</table>
+					</div> -->
+						<div id="imageContainerESA"></div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+		</div>
+	</div>
+</div>

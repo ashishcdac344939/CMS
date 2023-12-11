@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16"
+	href="../assets/images/aiimsLogo.png">
+<title>Home</title>
+<!-- Custom CSS -->
+<link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+<link href="../assets/libs/chartist/dist/chartist.min.css"
+	rel="stylesheet">
+<link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="../assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet"
+	href="../assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">
+<!-- Custom CSS -->
+<link href="../dist/css/style.min.css" rel="stylesheet">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- apps -->
+<!-- apps -->
+<script src="../dist/js/app-style-switcher.js"></script>
+<script src="../dist/js/feather.min.js"></script>
+<script
+	src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="../dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="../dist/js/custom.min.js"></script>
+<!--This page JavaScript -->
+<script src="../assets/extra-libs/c3/d3.min.js"></script>
+<script src="../assets/extra-libs/c3/c3.min.js"></script>
+<script src="../assets/libs/chartist/dist/chartist.min.js"></script>
+<script
+	src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<script
+	src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+<script
+	src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+<script src="../dist/js/pages/dashboards/dashboard1.min.js"></script>
+<!-- for data tables -->
+<script
+	src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="../assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
+<script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
+<script type="text/javascript" th:src="@{/js/custom/patient.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom/symptom.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom/medicine.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom/pharmacist.js}"></script>
+<script src='https://cdn.plot.ly/plotly-2.25.2.min.js'></script>
+
+<style type="text/css">
+.jqstooltip {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	visibility: hidden;
+	background: rgb(0, 0, 0) transparent;
+	background-color: rgba(0, 0, 0, 0.6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,
+		endColorstr=#99000000);
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+	color: white;
+	font: 10px arial, san serif;
+	text-align: left;
+	white-space: nowrap;
+	padding: 5px;
+	border: 1px solid white;
+	z-index: 10000;
+}
+
+.jqsfield {
+	color: white;
+	font: 10px arial, san serif;
+	text-align: left;
+}
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+	#prescriptionPrintDiv * {
+		visibility: visible;
+	}
+	#painAssessmentPrintDiv * {
+		visibility: visible;
+	}
+}
+</style>
+</head>
+
+<body>
+
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<script th:inline="javascript">
+    var sysIp = 'localhost'
+    	var sysPort = '9099'
+        /*<![CDATA[*/  
+        // Store the token in localStorage
+        localStorage.setItem('token', [[${token}]]);
+        localStorage.setItem('userId', [[${userId}]]);
+        localStorage.setItem('patientCredId', [[${patientCredId}]]);
+        localStorage.setItem('userRole', [[${userRole}]]);
+        localStorage.setItem('userName', [[${userName}]]);
+        /*]]>*/
+        function logout() {
+            // Remove the token from localStorage
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('patientCredId');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userName');
+            alert('User has been logged out successfully.');
+        }
+        /* end */
+        $(document).ready(function() {
+        	 displaydashboard();
+        });
+       
+    </script>
+
+	<div class="preloader">
+		<div class="lds-ripple">
+			<div class="lds-pos"></div>
+			<div class="lds-pos"></div>
+		</div>
+	</div>
+ 
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper" data-theme="light" data-layout="vertical"
+		data-navbarbg="skin6" data-sidebartype="full"
+		data-sidebar-position="fixed" data-header-position="fixed"
+		data-boxed-layout="full">
+
+
+		<!-- Topbar header - style you can find in pages.scss -->
+		<div th:replace="fragments/header::header"></div>
+		<!-- End Topbar header -->
+
+
+		<!-- Left Sidebar - style you can find in sidebar.scss  -->
+		<div th:replace="fragments/doctorSidebar::doctorSidebar"></div>
+		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+
+
+		<!-- ============================================================== -->
+		<!-- Page wrapper  -->
+		<!-- ============================================================== -->
+		<div class="page-wrapper ">
+			<!-- ============================================================== -->
+			<!-- Bread crumb and right sidebar toggle -->
+			<!-- ============================================================== -->
+			<div class="page-breadcrumb dashboard">
+				<div class="row">
+					<div class="col-7 align-self-center">
+						<h3
+							class="page-title text-truncate text-dark font-weight-medium mb-1">
+							Hello <span th:text="${#strings.toUpperCase(userName)}"></span>(<span
+								th:text="${userRole}"> </span>)
+						</h3>
+
+					</div>
+
+				</div>
+			</div>
+
+			<div class="container-fluid dashboardPage">
+
+				<div class="row">
+					<div class="col-sm-6 col-lg-3">
+						<div class="card bg-primary-20 border border-primary-50 text-dark">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<div class="d-inline-flex align-items-center">
+											<h2 class="mb-1 font-weight-medium" th:text="${totalPatient}">236</h2>
+											<!--  <span
+                                                class="badge bg-primary font-12 text-white font-weight-medium rounded-pill ms-2 d-lg-block d-md-none">+18.33%</span> -->
+										</div>
+										<h6 class="font-weight-normal mb-0 w-100 text-truncate">Total
+											Patients</h6>
+									</div>
+									<div class="ms-auto mt-md-3 mt-lg-0">
+										<span class="opacity-7"><i class="fas fa-users fa-lg"></i></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-3">
+						<div class="card bg-danger-20 border border-danger-50 text-dark">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<h2 class="mb-1 w-100 text-truncate font-weight-medium"
+											th:text="${activePatient}">
+											<sup class="set-doller">$</sup>
+										</h2>
+										<h6 class="font-weight-normal mb-0 w-100 text-truncate">Active
+											Patient</h6>
+									</div>
+									<div class="ms-auto mt-md-3 mt-lg-0">
+										<span class="opacity-7"><i
+											class="fas fa-user-injured fa-lg"></i></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col-sm-6 col-lg-3">
+						<div class="card bg-success-20 border border-success-50 text-dark" style="border: 1px solid rgb(34 202 128 / 50%)">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<div class="d-inline-flex align-items-center">
+											<h2 class="mb-1 font-weight-medium"
+												th:text="${totalPatientVisits}"></h2>
+											<span
+                                                class="badge bg-danger font-12 text-white font-weight-medium rounded-pill ms-2 d-md-none d-lg-block"></span>
+										</div>
+										<h6
+											class="font-weight-normal mb-0 w-100 text-truncate">No
+											of Visits</h6>
+									</div>
+									<div class="ms-auto mt-md-3 mt-lg-0">
+										<span class="opacity-7"><i
+											data-feather="file-plus"></i></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<div class="col-sm-6 col-lg-3"
+						th:onclick="viewTodaysScheduledVisites()">
+						<!-- <div class="card blink_continous bg-success-20 border border-success-50 text-dark"> -->
+						<div class="card bg-success-20 border border-success-50 text-dark">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<div class="d-inline-flex align-items-center">
+											<h2 class="mb-1 font-weight-medium"
+												th:text="${userModelList.size()}"></h2>
+											<!-- <span
+                                                class="badge bg-danger font-12 text-white font-weight-medium rounded-pill ms-2 d-md-none d-lg-block"></span> -->
+										</div>
+										<h6 class="font-weight-normal mb-0 w-100 text-truncate">Today's
+											Expected Visits</h6>
+									</div>
+									<div class="ms-auto mt-md-3 mt-lg-0">
+										<span class="opacity-7"><i
+											class="fas fa-calendar-check fa-lg"></i></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-3">
+						<div class="card bg-warning-20 border border-warning-50 text-dark">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<h2 class="mb-1 font-weight-medium"
+											th:text="${noOfMedicineWith3eForm}">864</h2>
+										<h6 class="font-weight-normal mb-0 w-100 text-truncate">Form
+											3E Medicine</h6>
+									</div>
+									<div class="ms-auto mt-md-3 mt-lg-0">
+										<span class="opacity-7"><i class="fas fa-syringe fa-lg"></i></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-lg-6 col-md-12">
+						<div class="card">
+						<div class="card-header">Patients OverView</div>
+							<div class="card-body mt-4">
+								<div class="row">
+									<!-- Date Filter Start -->
+									<div class="col-sm-12 col-md-12 col-lg-5">
+										<h4 class="card-title">Initial Date</h4>
+										<form class="mt-4">
+											<div class="form-group">
+												<input type="date" class="form-control" value="2023-01-01"
+													id="poInitialDate">
+											</div>
+										</form>
+									</div>
+									<div class="col-sm-12 col-md-12 col-lg-5">
+										<h4 class="card-title">Till Date</h4>
+										<form class="mt-4">
+											<div class="form-group">
+												<input type="date" class="form-control" value="2018-05-13"
+													id="poTillDate">
+											</div>
+										</form>
+									</div>
+									<div class="col-sm-12 col-lg-2 text-end mt-5 my-3">
+										<input class="btn btn-primary" type="button" value="Apply"
+											onClick="ApplyPoFilter()">
+									</div>
+									<!-- Date filter End --> 
+								</div>
+								<hr>
+								<div class="row">
+									<!-- <h4 class="card-title col-sm-12">Patients OverView</h4>-->
+									<div class="col-sm-12 col-md-12 col-lg-12">
+										<div id="patientOverview"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-12">
+						<div class="card">
+						<div class="card-header">No Of Medicines With 3E Form</div>
+							<div class="card-body mt-4">
+								<div class="row">
+									<!-- Date Filter Start -->
+									<div class="col-sm-12 col-md-12 col-lg-5">
+										<h4 class="card-title">Initial Date</h4>
+										<form class="mt-4">
+											<div class="form-group">
+												<input type="date" class="form-control" value="2023-01-01"
+													id="barInitialDate">
+											</div>
+										</form>
+									</div>
+									<div class="col-sm-12 col-md-12 col-lg-5">
+										<h4 class="card-title">Till Date</h4>
+										<form class="mt-4">
+											<div class="form-group">
+												<input type="date" class="form-control" value="2018-05-13"
+													id="barTillDate">
+											</div>
+										</form>
+									</div>
+									<div class="col-sm-12 col-lg-2 text-end mt-5 my-3">
+										<input class="btn btn-primary" type="button" value="Apply"
+											onClick="ApplyBarFilter()">
+									</div>
+									<!-- Date filter End -->
+								</div>
+								<hr>
+								<div class="row">
+									<!--<h4 class="card-title col-sm-12">No Of Medicines With 3E
+										From</h4>-->
+									<div class="col-sm-12 col-md-12 col-lg-12">
+										<div id="barChart"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- <div class="net-income mt-4 position-relative"
+									style="height: 294px;"></div>
+								<ul class="list-inline text-center mt-5 mb-2">
+									<li class="list-inline-item text-muted fst-italic">Visits
+										for this month</li>
+								</ul> -->
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+					<div class="card-header">Geo Graphical Map</div>
+						<div class="card-body mt-4">
+							<div class="row">
+								<!-- Date Filter Start -->
+								<div class="col-sm-12 col-md-12 col-lg-5">
+									<h4 class="card-title">Initial Date</h4>
+									<form class="mt-4">
+										<div class="form-group">
+											<input type="date" class="form-control" value="2018-01-01"
+												id="geoInitialDate">
+										</div>
+									</form>
+								</div>
+								<div class="col-sm-12 col-md-12 col-lg-5">
+									<h4 class="card-title">Till Date</h4>
+									<form class="mt-4">
+										<div class="form-group">
+											<input type="date" class="form-control" value="2023-10-09"
+												id="geoTillDate">
+										</div>
+									</form>
+								</div>
+								<div class="col-sm-12 text-end my-3 col-lg-2 mt-5	">
+									<input class="btn btn-primary" type="button" value="Apply"
+										id="geoButton">
+								</div>
+								<!-- Date filter End -->
+							</div>
+							<hr>
+							<div class="row">
+								<!--<h4 class="card-title col-sm-12">Geo Graphical Map</h4> -->
+								<div class="col-sm-12 col-md-12 col-lg-12">
+									<div id="geoChart"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--  modal popu of viewPatient -->
+				<div class="modal fade" id="patientScheduledModal" tabindex="-1"
+					role="dialog" aria-labelledby="patientScheduledModal"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="patientScheduledModalLabel">
+									<b>Today's Appointments</b>
+								</h4>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-hidden="true"></button>
+							</div>
+							<div class="modal-body">
+								<div class="table-responsive">
+									<table class="table"
+										style="border: 1px solid var(- -bs-table-border-color)">
+										<tbody>
+											<tr>
+												<td colspan="4" style="padding: 0"><div
+														class="table-responsive">
+														<table class="table table-bordered mb-0">
+															<thead>
+																<tr>
+																	<th scope="col">Sr No.</th>
+																	<th scope="col">Name</th>
+																	<th scope="col">Patient Email</th>
+																	<th scope="col">Previous Visit Date</th>
+
+																</tr>
+															</thead>
+															<tbody>
+																<tr th:each="userData, index : ${userModelList}">
+																	<td th:text="${index.count}">1</td>
+																	<td th:text="${userData.userId}"></td>
+																	<td th:text="${userData.userName}"></td>
+																	<td th:text="${userData.investiGationDate}"></td>
+
+																</tr>
+
+															</tbody>
+														</table>
+													</div></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-light"
+									data-bs-dismiss="modal">Close</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+
+				</div>
+				<!--  End of view Patient-->
+				<!-- <div class="col-lg-4 col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title mb-4">Patient by Location</h4>
+								<div class="" style="height: 180px">
+									<div id="visitbylocate" style="height: 100%"></div>
+								</div>
+								<div class="row mb-3 align-items-center mt-1 mt-5">
+									<div class="col-4 text-end">
+										<span class="text-muted font-14">UP</span>
+									</div>
+									<div class="col-5">
+										<div class="progress" style="height: 5px;">
+											<div class="progress-bar bg-primary" role="progressbar"
+												style="width: 100%" aria-valuenow="25" aria-valuemin="0"
+												aria-valuemax="100"></div>
+										</div>
+									</div>
+									<div class="col-3 text-end">
+										<span class="mb-0 font-14 text-dark font-weight-medium">28%</span>
+									</div>
+								</div>
+								<div class="row mb-3 align-items-center">
+									<div class="col-4 text-end">
+										<span class="text-muted font-14">Goa</span>
+									</div>
+									<div class="col-5">
+										<div class="progress" style="height: 5px;">
+											<div class="progress-bar bg-danger" role="progressbar"
+												style="width: 74%" aria-valuenow="25" aria-valuemin="0"
+												aria-valuemax="100"></div>
+										</div>
+									</div>
+									<div class="col-3 text-end">
+										<span class="mb-0 font-14 text-dark font-weight-medium">21%</span>
+									</div>
+								</div>
+								<div class="row mb-3 align-items-center">
+									<div class="col-4 text-end">
+										<span class="text-muted font-14">Karnataka</span>
+									</div>
+									<div class="col-5">
+										<div class="progress" style="height: 5px;">
+											<div class="progress-bar bg-cyan" role="progressbar"
+												style="width: 60%" aria-valuenow="25" aria-valuemin="0"
+												aria-valuemax="100"></div>
+										</div>
+									</div>
+									<div class="col-3 text-end">
+										<span class="mb-0 font-14 text-dark font-weight-medium">18%</span>
+									</div>
+								</div>
+								<div class="row align-items-center">
+									<div class="col-4 text-end">
+										<span class="text-muted font-14">Delhi</span>
+									</div>
+									<div class="col-5">
+										<div class="progress" style="height: 5px;">
+											<div class="progress-bar bg-success" role="progressbar"
+												style="width: 50%" aria-valuenow="25" aria-valuemin="0"
+												aria-valuemax="100"></div>
+										</div>
+									</div>
+									<div class="col-3 text-end">
+										<span class="mb-0 font-14 text-dark font-weight-medium">12%</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+			</div>
+
+
+			<footer class="footer text-center text-muted"> All Rights
+				Reserved by AIIMS. </footer>
+
+		</div>
+
+	</div>
+
+	<script th:src="@{/js/addPatient.js}"></script>
+	<script>
+	// Get a reference to the input element
+	var poTillDateInput = document.getElementById("poTillDate");
+	var barTillDateInput = document.getElementById("barTillDate");
+	var geoTillDateInput = document.getElementById("geoTillDate");
+
+	// Create a new Date object for the current date
+	var currentDate = new Date();
+
+	// Format the current date as "YYYY-MM-DD"
+	var formattedDate = currentDate.toISOString().slice(0, 10);
+
+	// Set the formatted date as the value of the input element
+	poTillDateInput.value = formattedDate;
+	barTillDateInput.value = formattedDate;
+	geoTillDateInput.value = formattedDate;
+	ApplyPoFilter();
+	ApplyBarFilter();
+	geoMap();
+	$("#geoButton").click(function(){
+		geoMap();
+	})
+	function ApplyPoFilter(){
+		var layoutHeight = $('#patientOverview').height();
+		var layoutwidth = $('#patientOverview').width();
+		var docId = localStorage.getItem("userId");
+		var poInitialDate = $("#poInitialDate").val();
+		var poTillDate = $("#poTillDate").val();
+		$.ajax({
+			url: `../../patient/getPatientOverViewChart/`+docId, 
+			method: "GET",
+			 data: {
+				 poInitialDate: poInitialDate,
+				 poTillDate: poTillDate
+				  },
+			contentType: "application/json",
+			success: function(data) {
+				var myArray = [];
+				myArray.push(data)
+				console.log(myArray)
+				var layout = {
+					  height: layoutHeight,
+					  width: layoutwidth,
+					  font: {size: 18}
+					};
+				var config = {responsive: true}
+					  Plotly.newPlot('patientOverview', myArray, layout, config);
+			},
+			error: function() {
+				console.log("AJAX call failed");
+			}
+		});
+	}
+	function ApplyBarFilter(){
+		var docId = localStorage.getItem("userId");
+		var barInitialDate = $("#barInitialDate").val();
+		var barTillDate = $("#barTillDate").val();
+		$.ajax({
+			url: `../../medicine/3eFormMedicineCount/`+docId, 
+			method: "GET",
+			data: {
+				barInitialDate: barInitialDate,
+				barTillDate: barTillDate
+				  },
+			contentType: "application/json",
+			success: function(data) {
+				var xAxis = [];
+				var yAxis = [];
+				data.forEach(function(item){
+					xAxis.push(item.medicineName);
+					yAxis.push(item.quantity);
+				})
+				var chartData = [
+									  {
+									    x: xAxis,
+									    y: yAxis,
+									    type: 'bar'
+									  }
+									];
+				var layout2 = { 
+						  title: '',
+						  font: {size: 14}
+						};
+				var config2 = {responsive: true}
+				Plotly.newPlot('barChart', chartData,layout2,config2);
+				
+			},
+			
+			error: function() {
+				console.log("AJAX call failed");
+			}
+		});
+	}
+	function geoMap(){
+		var docId = localStorage.getItem("userId");
+		var geoInitialDate = $("#geoInitialDate").val();
+		var geoTillDate = $("#geoTillDate").val();
+		var lat=[];
+		var longitude=[];
+		$.ajax({
+			url: `../../patient/getPatientGeoLocationByDocId/`+docId, 
+			method: "GET",
+			data: {
+				geoInitialDate: geoInitialDate,
+				geoTillDate: geoTillDate
+				  },
+			contentType: "application/json",
+			success: function(data) {
+			console.log(data)
+				cityName=data.cityName;
+				
+				 var layoutHeight2 = $('#geoChart').height();
+					var layoutwidth2 = $('#geoChart').width();
+					var cityPop = data.pop;
+					var hoverText = [],
+					citySize = [],
+					hoverText = [],
+					scale = .1;
+					for ( var i = 0 ; i < cityPop.length; i++) {
+					    var currentSize = cityPop[i] / scale;
+					    var currentText = cityName[i] + " City and Patient Count: " + cityPop[i];
+					    citySize.push(currentSize);
+					    hoverText.push(currentText);
+					}
+					var data = [
+								{
+									type: "scattermapbox",
+									text: hoverText,
+									lon:data.longitude,
+									lat:data.latitude,
+					                hoverinfo: 'text',
+									// marker: { color: "fuchsia", size: 4 }
+					                marker: {
+					                  size: citySize,
+					                  color:"red",
+					                  line: {
+					                    color: 'black',
+					                     width: 2
+					                  },
+					               }
+								}
+							];
+
+							var layout3 = {
+								height: layoutHeight2,
+								width: layoutwidth2,
+								dragmode: "zoom",
+								mapbox: { style: "open-street-map", center: {  lat: 20.5937, lon: 78.9629 }, zoom: 3 },zoom:4,
+								margin: { r: 0, t: 0, b: 0, l: 0 }
+							};
+							var config3 = {responsive: true}
+
+							Plotly.newPlot("geoChart", data, layout3,config3);
+				
+			},
+			
+			error: function() {
+				console.log("AJAX call failed");
+			}
+		});
+		
+			
+	}
+
+		
+	</script>
+</body>
+
+</html>

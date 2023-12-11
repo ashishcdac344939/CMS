@@ -1,0 +1,74 @@
+<div class="row" id="doctorProfile" th:fragment="doctorProfile">
+		<div class="col-12">
+			<div class="card">
+			<div class="card-header">My Profile</div>
+				<div class="card-body"> 
+					<!-- <h4 class="card-title">Doctor Details</h4>
+					<hr> -->
+					<form class="">
+						<div class="row">
+							<div class="col-md-6" id="emailDiv">
+								<div class="form-group mb-3">
+									<label class="form-label text-dark" for="email">Email</label> <input
+										class="form-control" id="email" type="text"
+										placeholder="Enter your Email" disabled="disabled" th:value="${userId}">
+								</div> 
+							</div>
+							<div class="col-md-6" id="unameDiv">
+								<div class="form-group mb-3">
+									<label class="form-label text-dark" for="uname">Username</label>
+									<input class="form-control" id="username" type="text"
+										placeholder="Enter your Username" disabled="disabled" th:value="${userDetails.userName}">
+								</div>
+							</div>
+							<div class="col-md-6" id="passwordDiv">
+								<div class="form-group mb-3">
+									<label class="form-label text-dark" for="mobile">Mobile
+										Number</label>
+									<div class="row">
+										<div class="col-2">
+											<input class="form-control" id="mobilePrefix" type="text"
+												value="+91" disabled="disabled" >
+										</div>
+										<div class="col-10">
+											<input class="form-control" id="mobile" type="text"
+												maxlength="10"  th:value="${userDetails.userMobile}" disabled="disabled">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="passwordDiv">
+								<div class="form-group mb-3">
+									<label class="form-label text-dark" for="mobile">Center
+										Name</label>
+									<div class="row">
+										<div class="col-md-12">
+											<input class="form-control" id="mobile" type="text"
+												  th:value="${centerName}" disabled="disabled">
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="passwordDiv">
+								<div class="form-group mb-3">
+									<label class="form-label text-dark" for="userUniqueId">License
+										/ Registration Number </label> <input class="form-control"
+										id="userUniqueId" type="text"
+										th:value="${userDetails.userUniqueId}" disabled="disabled">
+								</div>
+							</div>
+							<div class="col-md-6" id="passwordDiv">
+								<div class="form-group mb-3">
+									<label class="form-label text-dark" for="uname">Designation</label>
+									<input class="form-control" id="userDescription" type="text"
+										 th:value="${userDetails.userDescription}" disabled="disabled">
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>

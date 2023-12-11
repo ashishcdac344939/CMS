@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16"
+	href="../assets/images/aiimsLogo.png">
+<title>Home</title>
+<!-- Custom CSS -->
+<link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+<link href="../assets/libs/chartist/dist/chartist.min.css"
+	rel="stylesheet">
+<link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	th:href="@{/assets/dataTables/datatables.min.css}">
+<!-- Custom CSS -->
+<link href="../dist/css/style.min.css" rel="stylesheet">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- apps -->
+<!-- apps -->
+<script src="../dist/js/app-style-switcher.js"></script>
+<script src="../dist/js/feather.min.js"></script>
+<script
+	src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="../dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="../dist/js/custom.min.js"></script>
+<!--This page JavaScript -->
+<script src="../assets/extra-libs/c3/d3.min.js"></script>
+<script src="../assets/extra-libs/c3/c3.min.js"></script>
+<script src="../assets/libs/chartist/dist/chartist.min.js"></script>
+<script
+	src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<script
+	src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+<script
+	src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+<script src="../dist/js/pages/dashboards/dashboard1.min.js"></script>
+<!-- for data tables -->
+<script th:src="@{/assets/dataTables/datatables.min.js}"></script>
+<script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
+<script type="text/javascript" th:src="@{/js/custom/patient.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom/symptom.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom/medicine.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom/pharmacist.js}"></script>
+
+<style type="text/css">
+.jqstooltip {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	visibility: hidden;
+	background: rgb(0, 0, 0) transparent;
+	background-color: rgba(0, 0, 0, 0.6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,
+		endColorstr=#99000000);
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+	color: white;
+	font: 10px arial, san serif;
+	text-align: left;
+	white-space: nowrap;
+	padding: 5px;
+	border: 1px solid white;
+	z-index: 10000;
+}
+
+.jqsfield {
+	color: white;
+	font: 10px arial, san serif;
+	text-align: left;
+}
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+	#prescriptionPrintDiv * {
+		visibility: visible;
+	}
+	#painAssessmentPrintDiv * {
+		visibility: visible;
+	}
+}
+</style>
+</head>
+<body>
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<script th:inline="javascript">
+    var sysIp = 'localhost'
+    	var sysPort = '9099'
+        /*<![CDATA[*/  
+        // Store the token in localStorage
+       localStorage.setItem('token', [[${token}]]);
+        localStorage.setItem('userId', [[${userId}]]);
+        localStorage.setItem('userRole', [[${userRole}]]);
+        localStorage.setItem('userName', [[${userName}]]);
+        /*]]>*/
+        function logout() {
+            // Remove the token from localStorage
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userName');
+            alert('User has been logged out successfully.');
+        }
+        /* end */
+        $(document).ready(function() {
+        	 displaydashboard();
+        });
+    </script>
+
+	<div class="preloader">
+		<div class="lds-ripple">
+			<div class="lds-pos"></div>
+			<div class="lds-pos"></div>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper" data-theme="light" data-layout="vertical"
+		data-navbarbg="skin6" data-sidebartype="full"
+		data-sidebar-position="fixed" data-header-position="fixed"
+		data-boxed-layout="full">
+
+		<!-- Topbar header - style you can find in pages.scss -->
+		<div th:replace="fragments/header::header"></div>
+		<!-- End Topbar header -->
+
+		<!-- Left Sidebar - style you can find in sidebar.scss  -->
+		<div th:replace="fragments/pharmacistSidebar::pharmacistSidebar"></div>
+		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+
+		<!-- ============================================================== -->
+		<!-- Page wrapper  -->
+		<!-- ============================================================== -->
+		<div class="page-wrapper ">
+			<!-- ============================================================== -->
+			<!-- Bread crumb and right sidebar toggle -->
+			<!-- ============================================================== -->
+			<div class="page-breadcrumb dashboard">
+				<div class="row">
+					<div class="col-7 align-self-center">
+						<h3
+							class="page-title text-truncate text-dark font-weight-medium mb-1">
+							Hello <span th:text="${#strings.toUpperCase(userName)}"></span>(<span
+								th:text="${userRole}"> </span>)
+						</h3>
+					</div>
+				</div>
+			</div>
+
+			<div class="container-fluid dashboardPage">
+				<!-- pharmasist dashboard -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+						<div class="card-header">Search Pateient Prescripton</div>
+							<div class="card-body">
+								<div class="form-body">
+									<div class="row">
+										<label class="form-label col-md-2"><b>Prescription ID: </b></label>
+										<div class="col-md-6">
+											<div class="form-group mb-3">
+												<input type="text" class="form-control"
+													placeholder="Enter Prescription Id"
+													aria-label="Recipient's username"
+													aria-describedby="basic-addon2" id="pVisitId">
+											</div>
+										</div>
+										<!-- <div class="col-md-2"></div> -->
+										<div class="form-actions col-md-3">
+											<div class="">
+												<button class="btn btn-info" type="button"
+													onclick="getMedicineByPatientVisitidId()">Search</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--  allocate medicine data table -->
+				<div id="giveMedicineDiv" style='display: none'>
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Allocate Medicine Table</h4>
+							<div>
+								<div id="zero_config_wrapper"
+									class="dataTables_wrapper container-fluid dt-bootstrap4">
+									<table id="medicine_allocate_table"
+										class="table border table-striped table-bordered text-nowrap dataTable"
+										role="grid" aria-describedby="zero_config_info">
+										<thead>
+											<tr role="row">
+												<th class="sorting_asc" tabindex="0"
+													aria-controls="zero_config" rowspan="1" colspan="1"
+													aria-sort="ascending"
+													aria-label="Name: activate to sort column descending"
+													width="20%">Medicine Name</th>
+												<th class="sorting" tabindex="0" aria-controls="zero_config"
+													rowspan="1" colspan="1"
+													aria-label="Position: activate to sort column ascending"
+													width="15%">Doctor Prescribed</th>
+												<th class="sorting" tabindex="0" aria-controls="zero_config"
+													rowspan="1" colspan="1"
+													aria-label="Position: activate to sort column ascending"
+													width="15%">Duration</th>
+												<th class="sorting" tabindex="0" aria-controls="zero_config"
+													rowspan="1" colspan="1"
+													aria-label="Position: activate to sort column ascending"
+													width="15%">Total Allocated </th>
+												<th class="sorting" tabindex="0" aria-controls="zero_config"
+													rowspan="1" colspan="1"
+													aria-label="Position: activate to sort column ascending"
+													width="15%">Available</th>
+												<th class="sorting" tabindex="0" aria-controls="zero_config"
+													rowspan="1" colspan="1"
+													aria-label="Position: activate to sort column ascending"
+													width="20%">Total Medicine Allocating Now</th>
+											</tr>
+										</thead>
+										<tbody id='medicineAllocateTable'>
+
+										</tbody>
+
+									</table>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<button class="btn btn-info" type="button"
+										onclick="saveMedicineAlloctedToPatient()" style=''>Save
+										Medicine Allocation</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- previous visited to take medicine  data table -->
+				<div id="preVisitTableDiv" style='display: none'>
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Previous Medical Visit History Table</h4>
+							<div >
+								<div id="zero_config_wrapper"
+									class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+									<div class="row">
+										<div class="col-sm-12">
+											<table id="medical_visit_history_table"
+												class="table border table-striped table-bordered text-nowrap dataTable"
+												role="grid" aria-describedby="zero_config_info">
+												<thead>
+													<tr role="row">
+														<th class="sorting_asc" tabindex="0"
+															aria-controls="zero_config" rowspan="1" colspan="1"
+															aria-sort="ascending"
+															aria-label="Name: activate to sort column descending"
+															style="width: 0px;">User Id</th>
+														<th class="sorting" tabindex="0"
+															aria-controls="zero_config" rowspan="1" colspan="1"
+															aria-label="Position: activate to sort column ascending"
+															style="width: 0px;">Medical visit Date</th>
+														<th class="sorting" tabindex="0"
+															aria-controls="zero_config" rowspan="1" colspan="1"
+															aria-label="Position: activate to sort column ascending"
+															style="width: 0px;">View Medicine History</th>
+													</tr>
+												</thead>
+												<tbody id='medicialVisitHistoryTable'>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--  end -->
+
+				<!-- model to show the previous allocated medicine -->
+				<div class="modal fade" id="previousMedicineAllocatedModal"
+					tabindex="-1" role="dialog" aria-labelledby="prescriptionModal"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myLargeModalLabel">Medicine
+									Allocated Details</h4>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-hidden="true"></button>
+							</div>
+							<!-- modal  body -->
+							<div class="modal-body" id='MedicineDetailsModelBody'>
+								<div class="table-responsive">
+									<div id="zero_config_wrapper"
+										class="dataTables_wrapper container-fluid dt-bootstrap4">
+										<div class="row">
+											<div class="col-sm-12">
+												<table
+													class="table border table-striped table-bordered text-nowrap dataTable"
+													role="grid" aria-describedby="zero_config_info">
+													<thead>
+														<tr role="row">
+															<th class="sorting_asc" tabindex="0"
+																aria-controls="zero_config" rowspan="1" colspan="1"
+																aria-sort="ascending"
+																aria-label="Name: activate to sort column descending"
+																style="width: 0px;">Medicine Name</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="zero_config" rowspan="1" colspan="1"
+																aria-label="Position: activate to sort column ascending"
+																style="width: 0px;">Medical Allocated Count</th>
+														</tr>
+													</thead>
+													<tbody id='matable'>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-light"
+									data-bs-dismiss="modal">Close</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+			</div>
+			<footer class="footer text-center text-muted"> All Rights
+				Reserved by AIIMS. </footer>
+		</div>
+	</div> 
+	<script th:src="@{/js/addPatient.js}"></script>
+	<script type="text/javascript">
+	$(".nav-link.dropdown-toggle").click(function(){
+		$(".nav-link.dropdown-toggle, .dropdown-menu.dropdown-menu-end.dropdown-menu-right.user-dd.animated.flipInY").toggleClass("show")
+		$(".nav-link.dropdown-toggle").attr("aria-expanded","true")
+		$(".dropdown-menu.dropdown-menu-end.dropdown-menu-right.user-dd.animated.flipInY").attr("data-bs-popper","static")
+	})
+	</script>
+</body>
+</html>

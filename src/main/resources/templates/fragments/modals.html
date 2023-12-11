@@ -1,0 +1,62 @@
+<div th:fragment="successModal">
+	<div id="success-modal" class="modal fade" tabindex="-1"
+		aria-modal="true" role="dialog" style="display: none;">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content modal-filled bg-success">
+				<div class="modal-body p-4">
+					<div class="text-center">
+						<i class="dripicons-checkmark h1"></i>
+						<h4 class="mt-2">Success!</h4>
+						<p class="mt-3" id="success-modal-text"></p>
+						<a class="btn btn-light my-2" id="success-modal-btn"
+							data-bs-dismiss="modal">Continue</a>
+					</div>
+				</div>
+			</div> 
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>
+<div th:fragment="errorModal">
+	<div id="error-modal" class="modal fade" tabindex="-1"
+		style="display: none;" aria-modal="true" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content modal-filled bg-danger">
+				<div class="modal-body p-4">
+					<div class="text-center">
+						<i class="dripicons-wrong h1"></i>
+						<h4 class="mt-2">Error!</h4>
+						<p class="mt-3" id="error-modal-text"></p>
+						<a class="btn btn-light my-2" id="error-modal-btn"
+							data-bs-dismiss="modal">Continue</a>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>
+<div th:fragment="confirmModal">
+	<div id="confirm-modal" class="modal fade" tabindex="-1"
+		style="display: none;" aria-modal="true" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-body p-4">
+					<div class="text-center">
+						<i class="dripicons-information h1 text-info"></i>
+						<h4 class="mt-2">Heads up!</h4>
+						<p class="mt-3" id="confirm-modal-text">Cras mattis consectetur purus sit amet
+							fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+							quam.</p>
+						<button type="button" class="btn btn-info my-2"
+							data-bs-dismiss="modal">Continue</button>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>

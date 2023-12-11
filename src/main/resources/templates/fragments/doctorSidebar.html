@@ -1,0 +1,49 @@
+<aside th:fragment="doctorSidebar" class="left-sidebar"
+	data-sidebarbg="skin6">
+	<!-- Sidebar scroll-->
+	<div class="scroll-sidebar" data-sidebarbg="skin6">
+		<!-- Sidebar navigation-->
+		<nav class="sidebar-nav">
+			<ul id="sidebarnav">
+				<li class="sidebar-item"><a class="sidebar-link sidebar-link"
+					aria-expanded="false" href="/user/home"><i
+						class="fas fa-chart-line"></i><span class="hide-menu">Dashboard</span></a></li>
+				<li class="list-divider"></li>
+				<li class="sidebar-item"><a class="sidebar-link active"
+					href="/patient/viewVisitPatient" aria-expanded="false"><i
+						class="fas fa-hospital-user"></i><span class="hide-menu">Patient Visit Details</span></a></li>
+				<li class="list-divider"></li> 
+				<li class="sidebar-item"><a class="sidebar-link active"
+					href="/patient/add" aria-expanded="false"><i class="fas fa-procedures"></i><span class="hide-menu">Add
+							Patient </span></a></li>
+				<li class="list-divider"></li>
+				<li class="sidebar-item"><a class="sidebar-link active"
+					href="/pharmasist/add" aria-expanded="false"><i
+						class="fas fa-clinic-medical"></i><span class="hide-menu">Add
+							Pharmacist </span></a></li>
+				<li class="list-divider"></li>
+				<li class="sidebar-item"><a class="sidebar-link active"
+					th:if="${userRole == 'ROLE_PHARMACIST'}" href="/symptom/add"
+					aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg"
+							width="24" height="24" viewBox="0 0 24 24" fill="none"
+							stroke="currentColor" stroke-width="2" stroke-linecap="round"
+							stroke-linejoin="round" class="feather feather-tag feather-icon">
+									<path
+								d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+									<line x1="7" y1="7" x2="7" y2="7"></line></svg><span
+						class="hide-menu">Add Symptom </span></a></li>
+						
+						<li class="sidebar-item"><a class="sidebar-link active"
+					href="/doctor/AddESA" aria-expanded="false"><i class="fas fa-clipboard-list"></i><span
+						class="hide-menu">Add ESA </span></a></li>
+				<li class="list-divider"></li>
+
+
+
+			</ul>
+
+		</nav>
+		<!-- End Sidebar navigation -->
+	</div>
+	<!-- End Sidebar scroll-->
+</aside>

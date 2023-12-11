@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Your Page</h1>
+    
+    <!-- Your content here -->
+    
+    <div id="response-container">
+        <!-- This div will be updated with the response content -->
+    </div>
+
+    <script th:inline="javascript">
+        var token = localStorage.getItem('token');
+			alert(token);
+        // Function to make an AJAX request
+        function makeAjaxRequest() {
+            $.ajax({
+                url: "/doctor/demo",
+                type: "GET",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                },
+                success: function (response) {
+                    // Handle the successful response
+                    $("#response-container").html(response);
+                },
+                error: function (xhr, status, error) {
+                    // Handle error cases
+                    console.error("Error: " + error);
+                }
+            });
+        }
+
+        // Call the function when the page loads
+        $(document).ready(function () {
+            makeAjaxRequest();
+        });
+    </script>
+</body>
+</html>

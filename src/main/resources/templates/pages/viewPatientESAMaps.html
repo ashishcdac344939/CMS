@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16"
+	href="../assets/images/aiimsLogo.png">
+<title>Home</title>
+<!-- Custom CSS -->
+<link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+<link href="../assets/libs/chartist/dist/chartist.min.css"
+	rel="stylesheet">
+<link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="../assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet"
+	href="../assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">
+<!-- Custom CSS -->
+<link href="../dist/css/style.min.css" rel="stylesheet">
+
+<!-- ============================================================== -->
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- apps -->
+<!-- apps -->
+<script src="../dist/js/app-style-switcher.js"></script>
+<script src="../dist/js/feather.min.js"></script>
+<script
+	src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="../dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="../dist/js/custom.min.js"></script>
+<!--This page JavaScript -->
+<script src="../assets/extra-libs/c3/d3.min.js"></script>
+<script src="../assets/extra-libs/c3/c3.min.js"></script>
+<script src="../assets/libs/chartist/dist/chartist.min.js"></script>
+<script
+	src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<script
+	src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+<script
+	src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+<script src="../dist/js/pages/dashboards/dashboard1.min.js"></script>
+<!-- for data tables -->
+<script
+	src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="../assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" th:src="@{/js/custom/patient.js}"></script>
+<script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
+<script type="text/javascript" th:src="@{/js/custom/addPatient.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom/ESA.js}"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style type="text/css">
+.jqstooltip {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	visibility: hidden;
+	background: rgb(0, 0, 0) transparent;
+	background-color: rgba(0, 0, 0, 0.6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,
+		endColorstr=#99000000);
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+	color: white;
+	font: 10px arial, san serif;
+	text-align: left;
+	white-space: nowrap;
+	padding: 5px;
+	border: 1px solid white;
+	z-index: 10000;
+}
+
+.jqsfield {
+	color: white;
+	font: 10px arial, san serif;
+	text-align: left;
+}
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+	#prescriptionPrintDiv * {
+		visibility: visible;
+	}
+	#painAssessmentPrintDiv * {
+		visibility: visible;
+	}
+}
+</style>
+</head>
+<body>
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper" data-theme="light" data-layout="vertical"
+		data-navbarbg="skin6" data-sidebartype="full"
+		data-sidebar-position="fixed" data-header-position="fixed"
+		data-boxed-layout="full">
+
+		<div th:replace="fragments/header::header"></div>
+
+		<div sec:authorize="hasRole('ROLE_DOCTOR')">
+			<div th:replace="fragments/doctorSidebar::doctorSidebar"></div>
+		</div>
+		<div sec:authorize="hasRole('ROLE_PATIENT')">
+			<div th:replace="fragments/patientSidebar::patientSidebar"></div>
+		</div>
+
+		<div class="page-wrapper ">
+		<div class="container-fluid dashboardPage">
+		<div class="row" style="margin-bottom:10px;">
+		<div class="col-12">
+		Patient Name: <span th:text="${patientName.toUpperCase()}"></span>
+		</div>
+		</div>
+		
+			<div class="row">
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+						<div id="pain-chart"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+						 <div id="nausea-chart"></div>
+							<!-- Date filter End -->
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+						 <div id="tiredness-chart"></div>
+							<!-- Date filter End -->
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+						 <div id="depression-chart"></div>
+							<!-- Date filter End -->
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+						 <div id="anxiety-chart"></div>
+							<!-- Date filter End -->
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+						 <div id="drowsiness-chart"></div>
+							<!-- Date filter End -->
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+						 <div id="appetite-chart"></div>
+							<!-- Date filter End -->
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+						 <div id="wellbeing-chart"></div>
+							<!-- Date filter End -->
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+						 <div id="sob-chart"></div>
+							<!-- Date filter End -->
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+						 <div id="others-chart"></div>
+							<!-- Date filter End -->
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+
+
+			<!-- <div class="page-breadcrumb dashboard">
+				<div class="row">
+					<div class="col-7 align-self-center">
+						<h3
+							class="page-title text-truncate text-dark font-weight-medium mb-1">
+							Hello Dr. <span th:text="${#strings.toUpperCase(userName)}"></span>
+						</h3>
+					</div>
+
+				</div>
+			</div> -->
+
+
+			<footer class="footer text-center text-muted"> All Rights
+				Reserved by AIIMS. </footer>
+
+		</div>
+</div>
+	</div>
+	<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function(){
+    	const symptomArray = ['pain', 'tiredness', 'nausea', 'depression', 'anxiety', 'drowsiness', 'appetite', 'wellbeing', 'sob','others'];
+
+        var painDates = /*[[${painDates}]]*/ null;
+        var painValueList = /*[[${painValueList}]]*/ null;
+        var paincompletedBy = /*[[${paincompletedBy}]]*/ null;
+        var nauseaDates = /*[[${nauseaDates}]]*/ null;
+        var nauseaValueList = /*[[${nauseaValueList}]]*/ null;
+        var nauseacompletedBy = /*[[${nauseacompletedBy}]]*/ null;
+        
+        var tirednessDates = /*[[${tirednessDates}]]*/ null;
+        var tirednessValueList = /*[[${tirednessValueList}]]*/ null;
+        var tirednesscompletedBy = /*[[${tirednesscompletedBy}]]*/ null;
+        
+        var depressionDates = /*[[${depressionDates}]]*/ null;
+        var depressionValueList = /*[[${depressionValueList}]]*/ null;
+        var depressioncompletedBy = /*[[${depressioncompletedBy}]]*/ null;
+        
+        var anxietyDates = /*[[${anxietyDates}]]*/ null;
+        var anxietyValueList = /*[[${anxietyValueList}]]*/ null;
+        var anxietycompletedBy = /*[[${anxietycompletedBy}]]*/ null;
+        
+        var drowsinessDates = /*[[${drowsinessDates}]]*/ null;
+        var drowsinessValueList = /*[[${drowsinessValueList}]]*/ null;
+        var drowsinesscompletedBy = /*[[${drowsinesscompletedBy}]]*/ null;
+        
+        var appetiteDates = /*[[${appetiteDates}]]*/ null;
+        var appetiteValueList = /*[[${appetiteValueList}]]*/ null;
+        var appetitecompletedBy = /*[[${appetitecompletedBy}]]*/ null;
+        
+        var wellbeingDates = /*[[${wellbeingDates}]]*/ null;
+        var wellbeingValueList = /*[[${wellbeingValueList}]]*/ null;
+        var wellbeingcompletedBy = /*[[${wellbeingcompletedBy}]]*/ null;
+        
+        var sobDates = /*[[${sobDates}]]*/ null;
+        var sobValueList = /*[[${sobValueList}]]*/ null;
+        var sobcompletedBy = /*[[${sobcompletedBy}]]*/ null;
+        
+        var othersDates = /*[[${othersDates}]]*/ null;
+        var othersValueList = /*[[${othersValueList}]]*/ null;
+        var otherscompletedBy = /*[[${otherscompletedBy}]]*/ null;
+        
+        showMapOfESAStatistics(painDates, painValueList,"pain",paincompletedBy);
+        showMapOfESAStatistics(nauseaDates, nauseaValueList,"nausea",nauseacompletedBy);
+        showMapOfESAStatistics(tirednessDates, tirednessValueList,"tiredness",tirednesscompletedBy);
+        showMapOfESAStatistics(depressionDates, depressionValueList,"depression",depressioncompletedBy);
+        showMapOfESAStatistics(anxietyDates, anxietyValueList,"anxiety",anxietycompletedBy);
+        showMapOfESAStatistics(drowsinessDates,drowsinessValueList,"drowsiness",drowsinesscompletedBy);
+        showMapOfESAStatistics(appetiteDates, appetiteValueList,"appetite",appetitecompletedBy);
+        showMapOfESAStatistics(wellbeingDates, wellbeingValueList,"wellbeing",wellbeingcompletedBy);
+        showMapOfESAStatistics(sobDates, sobValueList,"sob",sobcompletedBy);
+        showMapOfESAStatistics(othersDates, othersValueList,"others",otherscompletedBy);
+        
+        
+    });
+    /*]]>*/
+</script>
+</body>
+</html>
